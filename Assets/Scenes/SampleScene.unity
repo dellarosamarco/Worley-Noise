@@ -236,8 +236,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e06529b038731a0488b49951026fa216, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridSize: {x: 25, y: 25}
-  cellSize: {x: 0.3, y: 0.3}
+  gridSize: {x: 90, y: 90}
+  totalChunks: {x: 3, y: 3}
+  cellSize: {x: 0.1, y: 0.1}
 --- !u!4 &695151777
 Transform:
   m_ObjectHideFlags: 0

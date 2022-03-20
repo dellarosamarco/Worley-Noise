@@ -30,4 +30,9 @@ public class Cell
         //Set scale
         transform.localScale = scale;
     }
+
+    public void setPoint()
+    {
+        spriteRenderer.color = Color.red;
+    }
 }
