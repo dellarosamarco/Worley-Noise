@@ -5,3 +5,7 @@
 /Temp
 /UserSettings
 *.vsconfig
+*.vs
+/obj
+*.csproj
+*.sln
