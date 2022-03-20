@@ -102,24 +102,24 @@ public class WorleyNoise : MonoBehaviour
         float xOffset = gridSize.x / 2 * cellSize.x;
         float yOffset = gridSize.y / 2 * cellSize.y;
 
-        left_temp.y = (gridSize.y / 2) * cellSize.y;
-        right_temp.y = -(gridSize.y / 2) * cellSize.y;
+        left_temp.y = (gridSize.y / 2) * cellSize.y - cellSize.y / 2; ;
+        right_temp.y = -(gridSize.y / 2) * cellSize.y - cellSize.y / 2; ;
 
         for (int x = 0; x <= totalChunks.x; x++)
         {
-            left_temp.x = (x * xChunkSize * cellSize.x) - xOffset;
-            right_temp.x = (x * xChunkSize * cellSize.x) - xOffset;
+            left_temp.x = (x * xChunkSize * cellSize.x) - xOffset - cellSize.x / 2;
+            right_temp.x = (x * xChunkSize * cellSize.x) - xOffset - cellSize.x / 2;
 
             Debug.DrawLine(left_temp, right_temp, Color.yellow);
         }
 
-        left_temp.x = (gridSize.x / 2) * cellSize.x;
-        right_temp.x = -(gridSize.x / 2) * cellSize.x;
+        left_temp.x = (gridSize.x / 2) * cellSize.x - cellSize.x / 2; ;
+        right_temp.x = -(gridSize.x / 2) * cellSize.x - cellSize.x / 2; ;
 
         for (int y = 0; y <= totalChunks.y; y++)
         {
-            left_temp.y = (y * yChunkSize * cellSize.y) - yOffset;
-            right_temp.y = (y * yChunkSize * cellSize.y) - yOffset;
+            left_temp.y = (y * yChunkSize * cellSize.y) - yOffset - cellSize.y / 2;
+            right_temp.y = (y * yChunkSize * cellSize.y) - yOffset - cellSize.y / 2;
 
             Debug.DrawLine(left_temp, right_temp, Color.yellow);
         }
