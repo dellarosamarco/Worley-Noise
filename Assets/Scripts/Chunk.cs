@@ -15,9 +15,10 @@ public class Chunk
         cells.Add(cell);
     }
 
-    public void setPoint()
+    public Cell setPoint()
     {
         int index = Random.Range(0, cells.Count);
         cells[index].setPoint();
+        return cells[index];
     }
 }

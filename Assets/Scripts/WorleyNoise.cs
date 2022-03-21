@@ -7,14 +7,18 @@ public class WorleyNoise : MonoBehaviour
     public Vector2Int gridSize;
     public Vector2Int totalChunks;
     public Vector2 cellSize;
+
     private float[,] map;
     private Cell[,] cells;
+    private List<Cell> points;
+    private List<Chunk> chunks;
 
     private void Start()
     {
         map = new float[gridSize.x, gridSize.y];
         cells = new Cell[gridSize.x, gridSize.y];
 
+        //Generate cells
         Vector2 cellPosition = new Vector2(0,0);
 
         int xOffset = (int)gridSize.x/2;
@@ -32,21 +36,29 @@ public class WorleyNoise : MonoBehaviour
             }
         }
 
+        generateChunks();
+
         generatePoints();
+
+        cellsIteration();
+    }
+
+    void generateChunks()
+    {
+        int _totalChunks = totalChunks.x * totalChunks.y;
+
+        chunks = new List<Chunk>();
+
+        for (int i = 0; i < _totalChunks; i++)
+        {
+            chunks.Add(new Chunk());
+        }
     }
 
     void generatePoints()
     {
         int xChunkSize = gridSize.x / totalChunks.x;
         int yChunkSize = gridSize.y / totalChunks.y;
-        int _totalChunks = totalChunks.x * totalChunks.y;
-
-        List<Chunk> chunks = new List<Chunk>();
-
-        for (int i = 0; i < _totalChunks; i++)
-        {
-            chunks.Add(new Chunk());
-        }
 
         for (int x = 0; x < gridSize.x; x++)
         {
@@ -58,9 +70,11 @@ public class WorleyNoise : MonoBehaviour
             }
         }
 
+        points = new List<Cell>();
+
         foreach(Chunk chunk in chunks)
         {
-            chunk.setPoint();
+            points.Add(chunk.setPoint());
         }
     }
 
@@ -90,6 +104,31 @@ public class WorleyNoise : MonoBehaviour
         finalIndex = (yIndex - 1) * totalChunks.x + xIndex;
 
         return finalIndex-1;
+    }
+
+    void cellsIteration()
+    {
+        for (int x = 0; x < gridSize.x; x++)
+        {
+            for (int y = 0; y < gridSize.y; y++)
+            {
+                float distance = Vector2.Distance(cells[x,y].transform.position, points[0].transform.position);
+                int index = 0;
+
+                for (int n = 1; n < points.Count; n++)
+                {
+                    float _distance = Vector2.Distance(cells[x, y].transform.position, points[n].transform.position);
+
+                    if(_distance < distance)
+                    {
+                        index = n;
+                        distance = _distance;
+                    }
+                }
+
+                Debug.Log(distance);
+            }
+        }
     }
 
     Vector3 left_temp;

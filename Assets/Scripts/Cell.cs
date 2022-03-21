@@ -6,7 +6,7 @@ public class Cell
 {
     private GameObject cell;
     private SpriteRenderer spriteRenderer;
-    private Transform transform;
+    public Transform transform;
     private Color color;
 
     public Cell(
