@@ -237,8 +237,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gridSize: {x: 90, y: 90}
-  totalChunks: {x: 3, y: 3}
+  totalChunks: {x: 10, y: 10}
   cellSize: {x: 0.1, y: 0.1}
+  viewChunks: 0
 --- !u!4 &695151777
 Transform:
   m_ObjectHideFlags: 0

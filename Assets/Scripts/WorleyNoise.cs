@@ -4,9 +4,13 @@ using UnityEngine;
 
 public class WorleyNoise : MonoBehaviour
 {
+    [Header("Configuration")]
     public Vector2Int gridSize;
     public Vector2Int totalChunks;
     public Vector2 cellSize;
+
+    [Header("Settings")]
+    public bool viewChunks;
 
     private float[,] map;
     private Cell[,] cells;
@@ -113,7 +117,6 @@ public class WorleyNoise : MonoBehaviour
             for (int y = 0; y < gridSize.y; y++)
             {
                 float distance = Vector2.Distance(cells[x,y].transform.position, points[0].transform.position);
-                int index = 0;
 
                 for (int n = 1; n < points.Count; n++)
                 {
@@ -121,12 +124,11 @@ public class WorleyNoise : MonoBehaviour
 
                     if(_distance < distance)
                     {
-                        index = n;
                         distance = _distance;
                     }
                 }
 
-                Debug.Log(distance);
+                cells[x, y].setColor(distance);
             }
         }
     }
@@ -135,32 +137,35 @@ public class WorleyNoise : MonoBehaviour
     Vector3 right_temp;
     void FixedUpdate()
     {
-        int xChunkSize = gridSize.x / totalChunks.x;
-        int yChunkSize = gridSize.y / totalChunks.y;
-
-        float xOffset = gridSize.x / 2 * cellSize.x;
-        float yOffset = gridSize.y / 2 * cellSize.y;
-
-        left_temp.y = (gridSize.y / 2) * cellSize.y - cellSize.y / 2; ;
-        right_temp.y = -(gridSize.y / 2) * cellSize.y - cellSize.y / 2; ;
-
-        for (int x = 0; x <= totalChunks.x; x++)
+        if (viewChunks)
         {
-            left_temp.x = (x * xChunkSize * cellSize.x) - xOffset - cellSize.x / 2;
-            right_temp.x = (x * xChunkSize * cellSize.x) - xOffset - cellSize.x / 2;
+            int xChunkSize = gridSize.x / totalChunks.x;
+            int yChunkSize = gridSize.y / totalChunks.y;
 
-            Debug.DrawLine(left_temp, right_temp, Color.yellow);
-        }
+            float xOffset = gridSize.x / 2 * cellSize.x;
+            float yOffset = gridSize.y / 2 * cellSize.y;
 
-        left_temp.x = (gridSize.x / 2) * cellSize.x - cellSize.x / 2; ;
-        right_temp.x = -(gridSize.x / 2) * cellSize.x - cellSize.x / 2; ;
+            left_temp.y = (gridSize.y / 2) * cellSize.y - cellSize.y / 2; ;
+            right_temp.y = -(gridSize.y / 2) * cellSize.y - cellSize.y / 2; ;
 
-        for (int y = 0; y <= totalChunks.y; y++)
-        {
-            left_temp.y = (y * yChunkSize * cellSize.y) - yOffset - cellSize.y / 2;
-            right_temp.y = (y * yChunkSize * cellSize.y) - yOffset - cellSize.y / 2;
+            for (int x = 0; x <= totalChunks.x; x++)
+            {
+                left_temp.x = (x * xChunkSize * cellSize.x) - xOffset - cellSize.x / 2;
+                right_temp.x = (x * xChunkSize * cellSize.x) - xOffset - cellSize.x / 2;
 
-            Debug.DrawLine(left_temp, right_temp, Color.yellow);
+                Debug.DrawLine(left_temp, right_temp, Color.yellow);
+            }
+
+            left_temp.x = (gridSize.x / 2) * cellSize.x - cellSize.x / 2; ;
+            right_temp.x = -(gridSize.x / 2) * cellSize.x - cellSize.x / 2; ;
+
+            for (int y = 0; y <= totalChunks.y; y++)
+            {
+                left_temp.y = (y * yChunkSize * cellSize.y) - yOffset - cellSize.y / 2;
+                right_temp.y = (y * yChunkSize * cellSize.y) - yOffset - cellSize.y / 2;
+
+                Debug.DrawLine(left_temp, right_temp, Color.yellow);
+            }
         }
     }
 }

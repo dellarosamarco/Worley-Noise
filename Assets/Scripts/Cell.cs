@@ -35,4 +35,10 @@ public class Cell
     {
         spriteRenderer.color = Color.red;
     }
+
+    public void setColor(float color)
+    {
+        this.color = new Color(255f, 255f, 255f, color);
+        spriteRenderer.color = this.color;
+    }
 }
