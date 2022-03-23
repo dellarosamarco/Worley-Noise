@@ -22,11 +22,21 @@ public class WorleyNoise : MonoBehaviour
         map = new float[gridSize.x, gridSize.y];
         cells = new Cell[gridSize.x, gridSize.y];
 
-        //Generate cells
-        Vector2 cellPosition = new Vector2(0,0);
+        generateCells();
 
-        int xOffset = (int)gridSize.x/2;
-        int yOffset = (int)gridSize.y/2;
+        generateChunks();
+
+        generatePoints();
+
+        cellsIteration();
+    }
+
+    void generateCells()
+    {
+        Vector2 cellPosition = new Vector2(0, 0);
+
+        int xOffset = (int)gridSize.x / 2;
+        int yOffset = (int)gridSize.y / 2;
 
         for (int x = 0; x < gridSize.x; x++)
         {
@@ -36,15 +46,9 @@ public class WorleyNoise : MonoBehaviour
                 cellPosition.y = (y * cellSize.y) - (yOffset * cellSize.y);
 
                 map[x, y] = 1;
-                cells[x, y] = new Cell(cellPosition, Random.Range(0.0f,0.2f), cellSize);
+                cells[x, y] = new Cell(cellPosition, Random.Range(0.0f, 0.2f), cellSize);
             }
         }
-
-        generateChunks();
-
-        generatePoints();
-
-        cellsIteration();
     }
 
     void generateChunks()
