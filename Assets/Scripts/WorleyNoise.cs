@@ -11,6 +11,7 @@ public class WorleyNoise : MonoBehaviour
 
     [Header("Settings")]
     public bool viewChunks;
+    public float noiseMultiplier = 7f;
 
     private float[,] map;
     private Cell[,] cells;
@@ -116,6 +117,9 @@ public class WorleyNoise : MonoBehaviour
 
     void cellsIteration()
     {
+        int xChunkSize = gridSize.x / totalChunks.x;
+        int yChunkSize = gridSize.y / totalChunks.y;
+
         for (int x = 0; x < gridSize.x; x++)
         {
             for (int y = 0; y < gridSize.y; y++)
@@ -132,7 +136,7 @@ public class WorleyNoise : MonoBehaviour
                     }
                 }
 
-                cells[x, y].setColor(distance);
+                cells[x, y].setColor((distance / xChunkSize) * noiseMultiplier);
             }
         }
     }
