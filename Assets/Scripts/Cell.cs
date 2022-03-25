@@ -5,9 +5,9 @@ using UnityEngine;
 public class Cell
 {
     private GameObject cell;
-    private SpriteRenderer spriteRenderer;
+    public SpriteRenderer spriteRenderer;
     public Transform transform;
-    private Color color;
+    public Color color;
     private Color baseColor;
 
     public Cell(

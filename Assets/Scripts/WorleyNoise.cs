@@ -11,9 +11,10 @@ public class WorleyNoise : MonoBehaviour
 
     [Header("Settings")]
     public bool viewChunks = false;
+    [Range(0, 100)]
+    public int chunkDensity = 100;
     public float noiseMultiplier = 7f;
     public Color baseColor = Color.white;
-
 
     private float[,] map;
     private Cell[,] cells;
@@ -83,9 +84,12 @@ public class WorleyNoise : MonoBehaviour
 
         points = new List<Cell>();
 
-        foreach(Chunk chunk in chunks)
+        foreach (Chunk chunk in chunks)
         {
-            points.Add(chunk.setPoint());
+            if (chunkDensity > Random.Range(0, 100))
+            {
+                points.Add(chunk.setPoint());
+            }
         }
     }
 
@@ -119,6 +123,9 @@ public class WorleyNoise : MonoBehaviour
 
     void cellsIteration()
     {
+        if (points.Count == 0)
+            return;
+
         int xChunkSize = gridSize.x / totalChunks.x;
         int yChunkSize = gridSize.y / totalChunks.y;
 
