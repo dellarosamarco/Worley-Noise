@@ -10,8 +10,10 @@ public class WorleyNoise : MonoBehaviour
     public Vector2 cellSize;
 
     [Header("Settings")]
-    public bool viewChunks;
+    public bool viewChunks = false;
     public float noiseMultiplier = 7f;
+    public Color baseColor = Color.white;
+
 
     private float[,] map;
     private Cell[,] cells;
@@ -47,7 +49,7 @@ public class WorleyNoise : MonoBehaviour
                 cellPosition.y = (y * cellSize.y) - (yOffset * cellSize.y);
 
                 map[x, y] = 1;
-                cells[x, y] = new Cell(cellPosition, Random.Range(0.0f, 0.2f), cellSize);
+                cells[x, y] = new Cell(cellPosition, Random.Range(0.0f, 0.2f), cellSize, baseColor);
             }
         }
     }
