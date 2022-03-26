@@ -1,24 +1,41 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Chunk 
+public class Chunk<T>
 {
-    private List<Cell> cells;
+    private List<T> cells;
 
     public Chunk()
     {
-        cells = new List<Cell>();
+        cells = new List<T>();
     }
 
-    public void addCell(Cell cell)
+    public void addCell(T cell)
     {
         cells.Add(cell);
     }
 
-    public Cell setPoint()
+    public T setPoint()
     {
         int index = Random.Range(0, cells.Count);
-        cells[index].setPoint();
+
+        if(cells[index].GetType() == typeof(Cell))
+        {
+            (cells[index] as Cell).setPoint();
+        }
+
         return cells[index];
+    }
+
+    public int getIndex(T element)
+    {
+        if (cells.Contains(element))
+        {
+            return cells.IndexOf(element);
+        }
+        else 
+        {
+            return -1;
+        }
     }
 }

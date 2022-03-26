@@ -20,7 +20,7 @@ public class WorleyNoise : MonoBehaviour
     private float[,] map;
     private Cell[,] cells;
     private List<Cell> points;
-    private List<Chunk> chunks;
+    private List<Chunk<Cell>> chunks;
 
     private void Start()
     {
@@ -60,11 +60,11 @@ public class WorleyNoise : MonoBehaviour
     {
         int _totalChunks = totalChunks.x * totalChunks.y;
 
-        chunks = new List<Chunk>();
+        chunks = new List<Chunk<Cell>>();
 
         for (int i = 0; i < _totalChunks; i++)
         {
-            chunks.Add(new Chunk());
+            chunks.Add(new Chunk<Cell>());
         }
     }
 
@@ -85,7 +85,7 @@ public class WorleyNoise : MonoBehaviour
 
         points = new List<Cell>();
 
-        foreach (Chunk chunk in chunks)
+        foreach (Chunk<Cell> chunk in chunks)
         {
             if (chunkDensity > Random.Range(0, 100))
             {
