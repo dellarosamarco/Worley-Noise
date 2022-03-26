@@ -15,6 +15,7 @@ public class WorleyNoise : MonoBehaviour
     public int chunkDensity = 100;
     public float noiseMultiplier = 7f;
     public Color baseColor = Color.white;
+    public bool colorInversion = false;
 
     private float[,] map;
     private Cell[,] cells;
@@ -145,6 +146,7 @@ public class WorleyNoise : MonoBehaviour
                     }
                 }
 
+                distance = colorInversion ? 1 - distance : distance;
                 cells[x, y].setColor((distance / xChunkSize) * noiseMultiplier);
             }
         }
