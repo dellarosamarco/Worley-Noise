@@ -130,11 +130,7 @@ public class WorleyNoiseTexture : MonoBehaviour
                     }
                 }
 
-                Debug.Log(((distance / xChunkSize / 10f) * noiseMultiplier));
-
-                //worleyNoiseTexture.SetPixel(x, y, new Color(baseColor.r, baseColor.g, baseColor.b, Random.Range(0.0f,1.0f)));
-                worleyNoiseTexture.SetPixel(x,y, new Color(baseColor.r, baseColor.g, baseColor.b, ((distance / xChunkSize / 10f) * noiseMultiplier)));
-                // worleyNoiseTexture.SetPixel(x, y, new Color(baseColor.r, baseColor.g, baseColor.b, distance));                
+                worleyNoiseTexture.SetPixel(x,y, new Color(baseColor.r, baseColor.g, baseColor.b, ((distance / xChunkSize / 10f) * noiseMultiplier)));              
             }
         }
 

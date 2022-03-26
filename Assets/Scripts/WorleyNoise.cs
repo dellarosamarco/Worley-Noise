@@ -1,7 +1,9 @@
 using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
+using System;
 
+[Obsolete("WorleyNoise is deprecated, please use WorleyNoiseTexture instead.")]
 public class WorleyNoise : MonoBehaviour
 {
     [Header("Configuration")]
@@ -51,7 +53,7 @@ public class WorleyNoise : MonoBehaviour
                 cellPosition.y = (y * cellSize.y) - (yOffset * cellSize.y);
 
                 map[x, y] = 1;
-                cells[x, y] = new Cell(cellPosition, Random.Range(0.0f, 0.2f), cellSize, baseColor);
+                cells[x, y] = new Cell(cellPosition, UnityEngine.Random.Range(0.0f, 0.2f), cellSize, baseColor);
             }
         }
     }
@@ -87,7 +89,7 @@ public class WorleyNoise : MonoBehaviour
 
         foreach (Chunk<Cell> chunk in chunks)
         {
-            if (chunkDensity > Random.Range(0, 100))
+            if (chunkDensity > UnityEngine.Random.Range(0, 100))
             {
                 points.Add(chunk.setPoint());
             }
