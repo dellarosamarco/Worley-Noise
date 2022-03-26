@@ -12,10 +12,13 @@ public class WorleyNoiseTexture : MonoBehaviour
     [Header("Configuration")]
     public Vector2Int gridSize;
     public Vector2Int totalChunks;
-    public float noiseMultiplier;
 
     [Header("Settings")]
+    [Range(0, 100)]
+    public int chunkDensity = 100;
+    public float noiseMultiplier;
     public Color baseColor = Color.white;
+    public bool colorInversion = false;
 
     private List<Chunk<Vector2>> chunks;
     private List<Vector2> points;
@@ -96,7 +99,10 @@ public class WorleyNoiseTexture : MonoBehaviour
 
         foreach (Chunk<Vector2> chunk in chunks)
         {
-            points.Add(chunk.setPoint());
+            if (chunkDensity > UnityEngine.Random.Range(0, 100))
+            {
+                points.Add(chunk.setPoint());
+            }
         }
     }
 
@@ -130,7 +136,8 @@ public class WorleyNoiseTexture : MonoBehaviour
                     }
                 }
 
-                worleyNoiseTexture.SetPixel(x,y, new Color(baseColor.r, baseColor.g, baseColor.b, ((distance / xChunkSize / 10f) * noiseMultiplier)));              
+                distance = colorInversion ? 1 - ((distance / xChunkSize / 10f) * noiseMultiplier) : ((distance / xChunkSize / 10f) * noiseMultiplier);
+                worleyNoiseTexture.SetPixel(x,y, new Color(baseColor.r, baseColor.g, baseColor.b, distance));              
             }
         }
 

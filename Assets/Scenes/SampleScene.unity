@@ -215,7 +215,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 695151777}
-  - component: {fileID: 695151776}
   - component: {fileID: 695151779}
   - component: {fileID: 695151778}
   m_Layer: 0
@@ -225,26 +224,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &695151776
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 695151775}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e06529b038731a0488b49951026fa216, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gridSize: {x: 120, y: 90}
-  totalChunks: {x: 10, y: 10}
-  cellSize: {x: 0.1, y: 0.1}
-  viewChunks: 0
-  chunkDensity: 100
-  noiseMultiplier: 7
-  baseColor: {r: 1, g: 1, b: 1, a: 1}
-  colorInversion: 1
 --- !u!4 &695151777
 Transform:
   m_ObjectHideFlags: 0
@@ -286,5 +265,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gridSize: {x: 120, y: 90}
   totalChunks: {x: 10, y: 10}
+  chunkDensity: 100
   noiseMultiplier: 7
   baseColor: {r: 1, g: 1, b: 1, a: 1}
+  colorInversion: 1
