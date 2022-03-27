@@ -266,6 +266,7 @@ MonoBehaviour:
   gridSize: {x: 120, y: 90}
   totalChunks: {x: 10, y: 10}
   chunkDensity: 100
-  noiseMultiplier: 7
+  noiseMultiplier: 4
   baseColor: {r: 1, g: 1, b: 1, a: 1}
   colorInversion: 1
+  pixelsPerUnit: 10

@@ -20,6 +20,9 @@ public class WorleyNoiseTexture : MonoBehaviour
     public Color baseColor = Color.white;
     public bool colorInversion = false;
 
+    [Header("Advanced Settings")]
+    public int pixelsPerUnit = 10;
+
     private List<Chunk<Vector2>> chunks;
     private List<Vector2> points;
 
@@ -38,8 +41,6 @@ public class WorleyNoiseTexture : MonoBehaviour
 
     void generateWorleyNoiseTexture()
     {
-        int pixelsPerUnit = 10;
-
         worleyNoise = new GameObject("Worley Noise");
 
         worleyNoiseTexture = new Texture2D(gridSize.x, gridSize.y, TextureFormat.RGBA32, false, linear:false);
@@ -59,10 +60,9 @@ public class WorleyNoiseTexture : MonoBehaviour
             for (int y = 0; y < gridSize.y; y++)
             {
                 worleyNoiseTexture.SetPixel(x, y, new Color(baseColor.r, baseColor.g, baseColor.b, Random.Range(0.0f, 1f)));
+                worleyNoiseTexture.Apply();
             }
         }
-
-        worleyNoiseTexture.Apply();
     }
 
     void generateChunks()
@@ -136,8 +136,8 @@ public class WorleyNoiseTexture : MonoBehaviour
                     }
                 }
 
-                distance = colorInversion ? 1 - ((distance / xChunkSize / 10f) * noiseMultiplier) : ((distance / xChunkSize / 10f) * noiseMultiplier);
-                worleyNoiseTexture.SetPixel(x,y, new Color(baseColor.r, baseColor.g, baseColor.b, distance));              
+                distance = colorInversion ? 1 - ((distance / xChunkSize / pixelsPerUnit) * noiseMultiplier) : ((distance / xChunkSize / pixelsPerUnit) * noiseMultiplier);
+                worleyNoiseTexture.SetPixel(x,y, new Color(baseColor.r, baseColor.g, baseColor.b, distance));
             }
         }
 
@@ -171,4 +171,41 @@ public class WorleyNoiseTexture : MonoBehaviour
 
         return finalIndex - 1;
     }
+
+    private float timer=0f;
+    private void Update()
+    {
+        timer += Time.deltaTime;
+        if(timer > 0.1f)
+        {
+            timer = 0;
+            for (int i = 0; i < points.Count; i++)
+            {
+                points[i] = getNewCellInsideChunk(points[i]);
+            }
+
+            cellsIteration();
+        }
+    }
+
+    private Vector2 tempVector;
+    private Vector2 getNewCellInsideChunk(Vector2 startingPoing)
+    {
+        tempVector.x = startingPoing.x + Random.Range(-1, 2);
+        tempVector.y = startingPoing.y + Random.Range(-1, 2);
+
+        if (tempVector.x < 0)
+            tempVector.x = 0;
+        else if (tempVector.x > gridSize.x - 1)
+            tempVector.x = gridSize.x - 1;
+
+        if (tempVector.y < 0)
+            tempVector.y = 0;
+        else if (tempVector.y > gridSize.y - 1)
+            tempVector.y = gridSize.y - 1;
+
+        return tempVector;
+    }
+
+    
 }
