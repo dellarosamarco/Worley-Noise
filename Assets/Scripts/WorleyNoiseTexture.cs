@@ -22,9 +22,17 @@ public class WorleyNoiseTexture : MonoBehaviour
 
     [Header("Advanced Settings")]
     public int pixelsPerUnit = 10;
+    public float movementDelay = 0.1f;
+    public bool dynamic = false;
 
     private List<Chunk<Vector2>> chunks;
     private List<Vector2> points;
+    private List<Vector2> pointsTargets;
+
+    // Temp variables
+    private Color tempColor = new Color();
+    private Vector2 tempVector;
+    private Vector2Int tempIntVector;
 
     private void Start()
     {
@@ -35,6 +43,11 @@ public class WorleyNoiseTexture : MonoBehaviour
         generateChunks();
 
         generatePoints();
+
+        if (dynamic)
+        {
+            generatePointsTargets();
+        }
 
         cellsIteration();
     }
@@ -137,11 +150,32 @@ public class WorleyNoiseTexture : MonoBehaviour
                 }
 
                 distance = colorInversion ? 1 - ((distance / xChunkSize / pixelsPerUnit) * noiseMultiplier) : ((distance / xChunkSize / pixelsPerUnit) * noiseMultiplier);
-                worleyNoiseTexture.SetPixel(x,y, new Color(baseColor.r, baseColor.g, baseColor.b, distance));
+
+                tempColor.r = baseColor.r;
+                tempColor.g = baseColor.g;
+                tempColor.b = baseColor.b;
+                tempColor.a = distance;
+
+                worleyNoiseTexture.SetPixel(x, y, tempColor);
             }
         }
 
         worleyNoiseTexture.Apply();
+    }
+
+    void generatePointsTargets()
+    {
+        pointsTargets = new List<Vector2>();
+
+        for (int i = 0; i < points.Count; i++)
+        {
+            pointsTargets.Add(getPointInsideTexture());
+        }
+    }
+
+    void generateSinglePointsTarget(int index)
+    {
+        pointsTargets[index] = getPointInsideTexture();
     }
 
     private int cellToChunkIndex(Vector2Int cellPosition, int xChunkSize, int yChunkSize, Vector2Int totalChunks)
@@ -175,24 +209,41 @@ public class WorleyNoiseTexture : MonoBehaviour
     private float timer=0f;
     private void Update()
     {
-        timer += Time.deltaTime;
-        if(timer > 0.1f)
+        //if (dynamic)
+        //{
+        //    timer += Time.deltaTime;
+        //    if (timer > movementDelay)
+        //    {
+        //        timer = 0;
+        //        for (int i = 0; i < points.Count; i++)
+        //        {
+        //            points[i] = getNewCellInsideChunk(points[i], Random.Range(-6, 7), Random.Range(-6, 7));
+        //        }
+
+        //        cellsIteration();
+        //    }
+        //}
+
+        if (dynamic) 
         {
-            timer = 0;
             for (int i = 0; i < points.Count; i++)
             {
-                points[i] = getNewCellInsideChunk(points[i]);
+                points[i] = Vector2.MoveTowards(points[i], pointsTargets[i], 15 * Time.deltaTime);
+
+                if(points[i] == pointsTargets[i])
+                {
+                    generateSinglePointsTarget(i);
+                }
             }
 
             cellsIteration();
         }
     }
 
-    private Vector2 tempVector;
-    private Vector2 getNewCellInsideChunk(Vector2 startingPoing)
+    private Vector2 getNewCellInsideChunk(Vector2 startingPoint, int rangeX, int RangeY)
     {
-        tempVector.x = startingPoing.x + Random.Range(-1, 2);
-        tempVector.y = startingPoing.y + Random.Range(-1, 2);
+        tempVector.x = startingPoint.x + Random.Range(-1, 2);
+        tempVector.y = startingPoint.y + Random.Range(-1, 2);
 
         if (tempVector.x < 0)
             tempVector.x = 0;
@@ -207,5 +258,10 @@ public class WorleyNoiseTexture : MonoBehaviour
         return tempVector;
     }
 
-    
+    private Vector2Int getPointInsideTexture()
+    {
+        tempIntVector.x = Random.Range(0, gridSize.x);
+        tempIntVector.y = Random.Range(0, gridSize.x);
+        return tempIntVector;
+    }
 }

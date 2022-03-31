@@ -264,9 +264,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gridSize: {x: 120, y: 90}
-  totalChunks: {x: 10, y: 10}
+  totalChunks: {x: 6, y: 6}
   chunkDensity: 100
-  noiseMultiplier: 4
-  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  noiseMultiplier: 11.58
+  baseColor: {r: 1, g: 0.14817396, b: 0, a: 1}
   colorInversion: 1
   pixelsPerUnit: 10
+  movementDelay: 0.05
+  dynamic: 1
+  dynamicColor: 1
