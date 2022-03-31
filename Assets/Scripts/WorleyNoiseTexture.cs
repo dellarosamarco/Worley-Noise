@@ -23,11 +23,17 @@ public class WorleyNoiseTexture : MonoBehaviour
     [Header("Advanced Settings")]
     public int pixelsPerUnit = 10;
     public float movementDelay = 0.1f;
-    public bool dynamic = false;
+    public bool dynamicChunks = false;
+    public bool dynamicBaseColor = false;
+    public float dynamicBaseColorChangeDelay = 0.0f;
 
     private List<Chunk<Vector2>> chunks;
     private List<Vector2> points;
     private List<Vector2> pointsTargets;
+
+    // Others
+    private float dynamicBaseColorTimer = 0.0f;
+    private Color dynamicBaseColorTarget = new Color();
 
     // Temp variables
     private Color tempColor = new Color();
@@ -36,6 +42,8 @@ public class WorleyNoiseTexture : MonoBehaviour
 
     private void Start()
     {
+        dynamicBaseColorTarget = baseColor;
+
         generateWorleyNoiseTexture();
 
         generateCells();
@@ -44,7 +52,7 @@ public class WorleyNoiseTexture : MonoBehaviour
 
         generatePoints();
 
-        if (dynamic)
+        if (dynamicChunks)
         {
             generatePointsTargets();
         }
@@ -129,6 +137,18 @@ public class WorleyNoiseTexture : MonoBehaviour
 
         Vector2 tempCell = Vector2.zero;
 
+        if (dynamicBaseColor && dynamicBaseColorTimer > dynamicBaseColorChangeDelay)
+        {
+            baseColor = Utilities.reachColor(baseColor, dynamicBaseColorTarget, new Vector3(0.01f, 0.01f, 0.01f));
+
+            dynamicBaseColorTimer = 0f;
+
+            if(baseColor == dynamicBaseColorTarget)
+            {
+                dynamicBaseColorTarget = Utilities.randomColor();
+            }
+        }
+
         for (int x = 0; x < gridSize.x; x++)
         {
             for (int y = 0; y < gridSize.y; y++)
@@ -206,25 +226,9 @@ public class WorleyNoiseTexture : MonoBehaviour
         return finalIndex - 1;
     }
 
-    private float timer=0f;
     private void Update()
     {
-        //if (dynamic)
-        //{
-        //    timer += Time.deltaTime;
-        //    if (timer > movementDelay)
-        //    {
-        //        timer = 0;
-        //        for (int i = 0; i < points.Count; i++)
-        //        {
-        //            points[i] = getNewCellInsideChunk(points[i], Random.Range(-6, 7), Random.Range(-6, 7));
-        //        }
-
-        //        cellsIteration();
-        //    }
-        //}
-
-        if (dynamic) 
+        if (dynamicChunks) 
         {
             for (int i = 0; i < points.Count; i++)
             {
@@ -237,6 +241,11 @@ public class WorleyNoiseTexture : MonoBehaviour
             }
 
             cellsIteration();
+        }
+
+        if (dynamicBaseColor)
+        {
+            dynamicBaseColorTimer += Time.deltaTime;
         }
     }
 
