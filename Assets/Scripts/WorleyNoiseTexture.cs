@@ -269,7 +269,7 @@ public class WorleyNoiseTexture : MonoBehaviour
     private Vector2Int getPointInsideTexture()
     {
         tempIntVector.x = Random.Range(0, gridSize.x);
-        tempIntVector.y = Random.Range(0, gridSize.x);
+        tempIntVector.y = Random.Range(0, gridSize.y);
         return tempIntVector;
     }
 
