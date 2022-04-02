@@ -24,6 +24,7 @@ public class WorleyNoiseTexture : MonoBehaviour
     public int pixelsPerUnit = 10;
     public float movementDelay = 0.1f;
     public bool dynamicChunks = false;
+    public float dynamicChunksSpeed = 15f;
     public bool dynamicBaseColor = false;
     public float dynamicBaseColorChangeDelay = 0.0f;
 
@@ -52,10 +53,7 @@ public class WorleyNoiseTexture : MonoBehaviour
 
         generatePoints();
 
-        if (dynamicChunks)
-        {
-            generatePointsTargets();
-        }
+        generatePointsTargets();
 
         cellsIteration();
     }
@@ -232,7 +230,7 @@ public class WorleyNoiseTexture : MonoBehaviour
         {
             for (int i = 0; i < points.Count; i++)
             {
-                points[i] = Vector2.MoveTowards(points[i], pointsTargets[i], 15 * Time.deltaTime);
+                points[i] = Vector2.MoveTowards(points[i], pointsTargets[i], dynamicChunksSpeed * Time.deltaTime);
 
                 if(points[i] == pointsTargets[i])
                 {

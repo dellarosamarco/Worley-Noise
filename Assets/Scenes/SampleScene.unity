@@ -267,10 +267,11 @@ MonoBehaviour:
   totalChunks: {x: 5, y: 5}
   chunkDensity: 100
   noiseMultiplier: 8
-  baseColor: {r: 0.2924528, g: 0.2924528, b: 0.2924528, a: 1}
-  colorInversion: 1
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  colorInversion: 0
   pixelsPerUnit: 10
   movementDelay: 0.05
-  dynamicChunks: 1
-  dynamicBaseColor: 1
-  dynamicBaseColorChangeDelay: 0.1
+  dynamicChunks: 0
+  dynamicChunksSpeed: 15
+  dynamicBaseColor: 0
+  dynamicBaseColorChangeDelay: 0.05
