@@ -27,6 +27,7 @@ public class WorleyNoiseTexture : MonoBehaviour
     public float dynamicChunksSpeed = 15f;
     public bool dynamicBaseColor = false;
     public float dynamicBaseColorChangeDelay = 0.0f;
+    public bool renderTargets = false;
 
     private List<Chunk<Vector2>> chunks;
     private List<Vector2> points;
@@ -271,4 +272,27 @@ public class WorleyNoiseTexture : MonoBehaviour
         tempIntVector.y = Random.Range(0, gridSize.x);
         return tempIntVector;
     }
+
+    private void FixedUpdate()
+    {
+        if(dynamicChunks && renderTargets)
+        {
+            for (int i = 0; i < points.Count; i++)
+            {
+                float pointsX = (points[i].x / (float)pixelsPerUnit) - gridSize.x / 2 / (float)pixelsPerUnit;
+                float pointsY = (points[i].y / (float)pixelsPerUnit) - gridSize.y / 2 / (float)pixelsPerUnit;
+
+                var worldPosPoint = transform.TransformPoint(new Vector3(pointsX, pointsY, 0));
+
+                float targetX = (pointsTargets[i].x / (float)pixelsPerUnit) - gridSize.x / 2 / (float)pixelsPerUnit;
+                float targetY = (pointsTargets[i].y / (float)pixelsPerUnit) - gridSize.y / 2 / (float)pixelsPerUnit;
+
+                var worldPosTarget = transform.TransformPoint(new Vector3(targetX, targetY, 0));
+
+                Debug.DrawLine(worldPosPoint, worldPosTarget, Color.yellow);
+            }
+        }
+    }
+
+    public Vector2 temp;
 }
