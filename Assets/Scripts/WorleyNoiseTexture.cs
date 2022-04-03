@@ -16,18 +16,19 @@ public class WorleyNoiseTexture : MonoBehaviour
     [Header("Settings")]
     [Range(0, 100)]
     public int chunkDensity = 100;
+    public int pixelsPerUnit = 10;
     public float noiseMultiplier;
     public Color baseColor = Color.white;
     public bool colorInversion = false;
 
     [Header("Advanced Settings")]
-    public int pixelsPerUnit = 10;
     public float movementDelay = 0.1f;
     public bool dynamicChunks = false;
     public float dynamicChunksSpeed = 15f;
     public bool dynamicBaseColor = false;
     public float dynamicBaseColorChangeDelay = 0.0f;
     public bool renderTargets = false;
+    public bool viewChunks = false;
 
     private List<Chunk<Vector2>> chunks;
     private List<Vector2> points;
@@ -41,6 +42,7 @@ public class WorleyNoiseTexture : MonoBehaviour
     private Color tempColor = new Color();
     private Vector2 tempVector;
     private Vector2Int tempIntVector;
+    private Vector3 tempVector3 = Vector3.zero;
 
     private void Start()
     {
@@ -273,6 +275,8 @@ public class WorleyNoiseTexture : MonoBehaviour
         return tempIntVector;
     }
 
+    private Vector3 startChunkLine;
+    private Vector3 endChunkLine;
     private void FixedUpdate()
     {
         if(dynamicChunks && renderTargets)
@@ -282,17 +286,54 @@ public class WorleyNoiseTexture : MonoBehaviour
                 float pointsX = (points[i].x / (float)pixelsPerUnit) - gridSize.x / 2 / (float)pixelsPerUnit;
                 float pointsY = (points[i].y / (float)pixelsPerUnit) - gridSize.y / 2 / (float)pixelsPerUnit;
 
-                var worldPosPoint = transform.TransformPoint(new Vector3(pointsX, pointsY, 0));
+                tempVector3.x = pointsX;
+                tempVector3.y = pointsY;
+                tempVector3.z = 0;
+
+                Vector3 worldPosPoint = transform.TransformPoint(tempVector3);
 
                 float targetX = (pointsTargets[i].x / (float)pixelsPerUnit) - gridSize.x / 2 / (float)pixelsPerUnit;
                 float targetY = (pointsTargets[i].y / (float)pixelsPerUnit) - gridSize.y / 2 / (float)pixelsPerUnit;
 
-                var worldPosTarget = transform.TransformPoint(new Vector3(targetX, targetY, 0));
+                tempVector3.x = targetX;
+                tempVector3.y = targetY;
+                tempVector3.z = 0;
 
-                Debug.DrawLine(worldPosPoint, worldPosTarget, Color.yellow);
+                Vector3 worldPosTarget = transform.TransformPoint(tempVector3);
+
+                Color lineColor = Color.white;
+                lineColor.a = Vector3.Distance(worldPosPoint, worldPosTarget) / pixelsPerUnit;
+
+                Debug.DrawLine(worldPosPoint, worldPosTarget, lineColor);
+            }
+        }
+
+        if (viewChunks)
+        {
+            float xChunkSize = (gridSize.x / (float)pixelsPerUnit) / totalChunks.x;
+            float yChunkSize = (gridSize.y / (float)pixelsPerUnit) / totalChunks.y;
+
+            for (int i = 0; i < totalChunks.x + 1; i++)
+            {
+                startChunkLine.x = -gridSize.x / 2 / (float)pixelsPerUnit + xChunkSize * i;
+                startChunkLine.y = gridSize.y / 2 / (float)pixelsPerUnit;
+
+                endChunkLine.x = startChunkLine.x;
+                endChunkLine.y = -startChunkLine.y;
+
+                Debug.DrawLine(startChunkLine, endChunkLine, Color.yellow);
+            }
+
+            for (int i = 0; i < totalChunks.y + 1; i++)
+            {
+                startChunkLine.x = -gridSize.x / 2 / (float)pixelsPerUnit;
+                startChunkLine.y = -gridSize.y / 2 / (float)pixelsPerUnit + yChunkSize * i;
+
+                endChunkLine.x = -startChunkLine.x;
+                endChunkLine.y = startChunkLine.y;
+
+                Debug.DrawLine(startChunkLine, endChunkLine, Color.yellow);
             }
         }
     }
-
-    public Vector2 temp;
 }
