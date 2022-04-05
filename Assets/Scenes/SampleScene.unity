@@ -278,3 +278,6 @@ MonoBehaviour:
   renderTargets: 0
   viewChunks: 0
   visualizeCellsIteration: 1
+  singleCellRendering: 0
+  columnRendering: 1
+  totalColumnRendering: 1

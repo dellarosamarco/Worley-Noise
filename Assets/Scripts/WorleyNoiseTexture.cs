@@ -29,7 +29,13 @@ public class WorleyNoiseTexture : MonoBehaviour
     public float dynamicBaseColorChangeDelay = 0.0f;
     public bool renderTargets = false;
     public bool viewChunks = false;
+
+    [Header("Cells Iteration Visualization")]
     public bool visualizeCellsIteration = false;
+    public bool singleCellRendering = false;
+    public bool columnRendering = false;
+    public int totalColumnRendering = 0;
+
 
     private List<Chunk<Vector2>> chunks;
     private List<Vector2> points;
@@ -60,10 +66,7 @@ public class WorleyNoiseTexture : MonoBehaviour
 
         generatePointsTargets();
 
-        if (!visualizeCellsIteration)
-            cellsIteration();
-        else
-            _cellsIterationCoroutine = StartCoroutine(cellsIterationCoroutine());
+        startCellIteration();
     }
 
     void generateWorleyNoiseTexture()
@@ -131,6 +134,17 @@ public class WorleyNoiseTexture : MonoBehaviour
                 points.Add(chunk.setPoint());
             }
         }
+    }
+
+    void startCellIteration()
+    {
+        if (
+            !visualizeCellsIteration || 
+            (!singleCellRendering && !columnRendering)
+            )
+            cellsIteration();
+        else
+            _cellsIterationCoroutine = StartCoroutine(cellsIterationCoroutine());
     }
 
     void cellsIteration()
@@ -211,6 +225,8 @@ public class WorleyNoiseTexture : MonoBehaviour
             }
         }
 
+        int columns = 0;
+
         for (int x = 0; x < gridSize.x; x++)
         {
             for (int y = 0; y < gridSize.y; y++)
@@ -239,9 +255,28 @@ public class WorleyNoiseTexture : MonoBehaviour
                 tempColor.a = distance;
 
                 worleyNoiseTexture.SetPixel(x, y, tempColor);
-                worleyNoiseTexture.Apply();
-                yield return null;
+
+                if(singleCellRendering && !columnRendering)
+                {
+                    worleyNoiseTexture.Apply();
+                    yield return null;
+                }
             }
+
+            if (columnRendering)
+            {
+                if(columns >= totalColumnRendering || totalColumnRendering > gridSize.x - x)
+                {
+                    columns = 0;
+                    worleyNoiseTexture.Apply();
+                    yield return null;
+                }
+                else
+                {
+                    columns++;
+                }
+            }
+            
         }
     }
 
@@ -302,10 +337,7 @@ public class WorleyNoiseTexture : MonoBehaviour
                 }
             }
 
-            if (!visualizeCellsIteration)
-                cellsIteration();
-            else
-                _cellsIterationCoroutine = StartCoroutine(cellsIterationCoroutine());
+            startCellIteration();
         }
 
         if (dynamicBaseColor)
