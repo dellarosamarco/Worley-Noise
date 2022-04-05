@@ -29,13 +29,13 @@ public class WorleyNoiseTexture : MonoBehaviour
     public float dynamicBaseColorChangeDelay = 0.0f;
     public bool renderTargets = false;
     public bool viewChunks = false;
+    public bool viewChunksPoints = false;
 
     [Header("Cells Iteration Visualization")]
     public bool visualizeCellsIteration = false;
     public bool singleCellRendering = false;
     public bool columnRendering = false;
     public int totalColumnRendering = 0;
-
 
     private List<Chunk<Vector2>> chunks;
     private List<Vector2> points;
@@ -429,6 +429,21 @@ public class WorleyNoiseTexture : MonoBehaviour
                 endChunkLine.y = startChunkLine.y;
 
                 Debug.DrawLine(startChunkLine, endChunkLine, Color.yellow);
+            }
+        }
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        if (Application.isPlaying && viewChunksPoints)
+        {
+            for (int i = 0; i < points.Count; i++)
+            {
+                tempVector3.x = points[i].x / (float)pixelsPerUnit - gridSize.x / 2 / (float)pixelsPerUnit;
+                tempVector3.y = points[i].y / (float)pixelsPerUnit - gridSize.y / 2 / (float)pixelsPerUnit;
+                tempVector3.z = 0;
+
+                Gizmos.DrawSphere(tempVector3, 0.1f);
             }
         }
     }
