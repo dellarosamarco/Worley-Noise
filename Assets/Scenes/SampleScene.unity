@@ -268,12 +268,13 @@ MonoBehaviour:
   chunkDensity: 100
   pixelsPerUnit: 10
   noiseMultiplier: 8
-  baseColor: {r: 0, g: 0.051671505, b: 1, a: 1}
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
   colorInversion: 1
   movementDelay: 0.05
-  dynamicChunks: 1
+  dynamicChunks: 0
   dynamicChunksSpeed: 15
   dynamicBaseColor: 0
   dynamicBaseColorChangeDelay: 0.05
-  renderTargets: 1
-  viewChunks: 1
+  renderTargets: 0
+  viewChunks: 0
+  visualizeCellsIteration: 1

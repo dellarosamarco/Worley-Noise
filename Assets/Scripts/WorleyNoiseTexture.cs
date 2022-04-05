@@ -29,6 +29,7 @@ public class WorleyNoiseTexture : MonoBehaviour
     public float dynamicBaseColorChangeDelay = 0.0f;
     public bool renderTargets = false;
     public bool viewChunks = false;
+    public bool visualizeCellsIteration = false;
 
     private List<Chunk<Vector2>> chunks;
     private List<Vector2> points;
@@ -37,6 +38,7 @@ public class WorleyNoiseTexture : MonoBehaviour
     // Others
     private float dynamicBaseColorTimer = 0.0f;
     private Color dynamicBaseColorTarget = new Color();
+    private Coroutine _cellsIterationCoroutine;
 
     // Temp variables
     private Color tempColor = new Color();
@@ -58,7 +60,10 @@ public class WorleyNoiseTexture : MonoBehaviour
 
         generatePointsTargets();
 
-        cellsIteration();
+        if (!visualizeCellsIteration)
+            cellsIteration();
+        else
+            _cellsIterationCoroutine = StartCoroutine(cellsIterationCoroutine());
     }
 
     void generateWorleyNoiseTexture()
@@ -184,6 +189,62 @@ public class WorleyNoiseTexture : MonoBehaviour
         worleyNoiseTexture.Apply();
     }
 
+    IEnumerator cellsIterationCoroutine()
+    {
+        if (points.Count == 0)
+            StopCoroutine(_cellsIterationCoroutine);
+
+        int xChunkSize = gridSize.x / totalChunks.x;
+        int yChunkSize = gridSize.y / totalChunks.y;
+
+        Vector2 tempCell = Vector2.zero;
+
+        if (dynamicBaseColor && dynamicBaseColorTimer > dynamicBaseColorChangeDelay)
+        {
+            baseColor = Utilities.reachColor(baseColor, dynamicBaseColorTarget, new Vector3(0.01f, 0.01f, 0.01f));
+
+            dynamicBaseColorTimer = 0f;
+
+            if (baseColor == dynamicBaseColorTarget)
+            {
+                dynamicBaseColorTarget = Utilities.randomColor();
+            }
+        }
+
+        for (int x = 0; x < gridSize.x; x++)
+        {
+            for (int y = 0; y < gridSize.y; y++)
+            {
+                tempCell.x = x;
+                tempCell.y = y;
+                float distance = Vector2.Distance(tempCell, points[0]);
+
+                for (int n = 1; n < points.Count; n++)
+                {
+                    tempCell.x = x;
+                    tempCell.y = y;
+                    float _distance = Vector2.Distance(tempCell, points[n]);
+
+                    if (_distance < distance)
+                    {
+                        distance = _distance;
+                    }
+                }
+
+                distance = colorInversion ? 1 - ((distance / xChunkSize / pixelsPerUnit) * noiseMultiplier) : ((distance / xChunkSize / pixelsPerUnit) * noiseMultiplier);
+
+                tempColor.r = baseColor.r;
+                tempColor.g = baseColor.g;
+                tempColor.b = baseColor.b;
+                tempColor.a = distance;
+
+                worleyNoiseTexture.SetPixel(x, y, tempColor);
+                worleyNoiseTexture.Apply();
+                yield return null;
+            }
+        }
+    }
+
     void generatePointsTargets()
     {
         pointsTargets = new List<Vector2>();
@@ -241,7 +302,10 @@ public class WorleyNoiseTexture : MonoBehaviour
                 }
             }
 
-            cellsIteration();
+            if (!visualizeCellsIteration)
+                cellsIteration();
+            else
+                _cellsIterationCoroutine = StartCoroutine(cellsIterationCoroutine());
         }
 
         if (dynamicBaseColor)
