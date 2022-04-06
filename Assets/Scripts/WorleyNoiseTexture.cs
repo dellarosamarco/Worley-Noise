@@ -36,6 +36,7 @@ public class WorleyNoiseTexture : MonoBehaviour
     public bool singleCellRendering = false;
     public bool columnRendering = false;
     public int totalColumnRendering = 0;
+    public bool visualizeChunkPointToCellLine = false;
 
     private List<Chunk<Vector2>> chunks;
     private List<Vector2> points;
@@ -235,6 +236,8 @@ public class WorleyNoiseTexture : MonoBehaviour
                 tempCell.y = y;
                 float distance = Vector2.Distance(tempCell, points[0]);
 
+                Vector2 selectedPoint = points[0];
+
                 for (int n = 1; n < points.Count; n++)
                 {
                     tempCell.x = x;
@@ -244,6 +247,7 @@ public class WorleyNoiseTexture : MonoBehaviour
                     if (_distance < distance)
                     {
                         distance = _distance;
+                        selectedPoint = points[n];
                     }
                 }
 
@@ -259,6 +263,20 @@ public class WorleyNoiseTexture : MonoBehaviour
                 if(singleCellRendering && !columnRendering)
                 {
                     worleyNoiseTexture.Apply();
+
+                    if (visualizeChunkPointToCellLine)
+                    {
+                        tempVector.x = tempCell.x / (float)pixelsPerUnit - gridSize.x / 2 / (float)pixelsPerUnit;
+                        tempVector.y = tempCell.y / (float)pixelsPerUnit - gridSize.y / 2 / (float)pixelsPerUnit;
+
+                        Vector3 left = tempVector;
+
+                        tempVector.x = selectedPoint.x / (float)pixelsPerUnit - gridSize.x / 2 / (float)pixelsPerUnit;
+                        tempVector.y = selectedPoint.y / (float)pixelsPerUnit - gridSize.y / 2 / (float)pixelsPerUnit;
+
+                        Vector3 right = tempVector;
+                        Debug.DrawLine(left, right, Color.white);
+                    }
                     yield return null;
                 }
             }

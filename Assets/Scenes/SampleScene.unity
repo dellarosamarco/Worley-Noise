@@ -275,7 +275,7 @@ MonoBehaviour:
   dynamicChunksSpeed: 15
   dynamicBaseColor: 0
   dynamicBaseColorChangeDelay: 0.05
-  renderTargets: 0
+  renderTargets: 1
   viewChunks: 1
   viewChunksPoints: 1
   visualizeCellsIteration: 1
