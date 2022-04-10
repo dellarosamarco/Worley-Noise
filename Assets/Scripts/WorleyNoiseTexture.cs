@@ -46,6 +46,7 @@ public class WorleyNoiseTexture : MonoBehaviour
     private float dynamicBaseColorTimer = 0.0f;
     private Color dynamicBaseColorTarget = new Color();
     private Coroutine _cellsIterationCoroutine;
+    private Vector3 colorIncreaser = new Vector3(0.01f, 0.01f, 0.01f);
 
     // Temp variables
     private Color tempColor = new Color();
@@ -86,11 +87,17 @@ public class WorleyNoiseTexture : MonoBehaviour
 
     void generateCells()
     {
+        Color tempColor;
         for (int x = 0; x < gridSize.x; x++)
         {
             for (int y = 0; y < gridSize.y; y++)
             {
-                worleyNoiseTexture.SetPixel(x, y, new Color(baseColor.r, baseColor.g, baseColor.b, Random.Range(0.0f, 1f)));
+                tempColor.r = baseColor.r;
+                tempColor.g = baseColor.g;
+                tempColor.b = baseColor.b;
+                tempColor.a = Random.Range(0.0f, 1.0f);
+
+                worleyNoiseTexture.SetPixel(x, y, tempColor);
                 worleyNoiseTexture.Apply();
             }
         }
@@ -113,15 +120,20 @@ public class WorleyNoiseTexture : MonoBehaviour
         int xChunkSize = gridSize.x / totalChunks.x;
         int yChunkSize = gridSize.y / totalChunks.y;
         Vector2 tempVector;
+        Vector2Int cellPosition = Vector2Int.zero;
 
         for (int x = 0; x < gridSize.x; x++)
         {
             for (int y = 0; y < gridSize.y; y++)
             {
-                Vector2Int cellPosition = new Vector2Int(x, y);
+                cellPosition.x = x;
+                cellPosition.y = y;
+
                 int chunkIndex = cellToChunkIndex(cellPosition, xChunkSize, yChunkSize, totalChunks);
+
                 tempVector.x = x;
                 tempVector.y = y;
+
                 chunks[chunkIndex].addCell(tempVector);
             }
         }
@@ -160,7 +172,7 @@ public class WorleyNoiseTexture : MonoBehaviour
 
         if (dynamicBaseColor && dynamicBaseColorTimer > dynamicBaseColorChangeDelay)
         {
-            baseColor = Utilities.reachColor(baseColor, dynamicBaseColorTarget, new Vector3(0.01f, 0.01f, 0.01f));
+            baseColor = Utilities.reachColor(baseColor, dynamicBaseColorTarget, colorIncreaser);
 
             dynamicBaseColorTimer = 0f;
 
@@ -216,7 +228,7 @@ public class WorleyNoiseTexture : MonoBehaviour
 
         if (dynamicBaseColor && dynamicBaseColorTimer > dynamicBaseColorChangeDelay)
         {
-            baseColor = Utilities.reachColor(baseColor, dynamicBaseColorTarget, new Vector3(0.01f, 0.01f, 0.01f));
+            baseColor = Utilities.reachColor(baseColor, dynamicBaseColorTarget, colorIncreaser);
 
             dynamicBaseColorTimer = 0f;
 
