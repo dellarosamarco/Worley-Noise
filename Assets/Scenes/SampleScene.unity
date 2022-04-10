@@ -254,11 +254,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09d08bf6c12d7b54c8d9e467c9dfe696, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  worleyNoiseMesh: {fileID: 1252226003}
   gridSize: {x: 120, y: 90}
   totalChunks: {x: 5, y: 5}
   chunkDensity: 100
   pixelsPerUnit: 10
-  noiseMultiplier: 8
+  noiseMultiplier: 20
   baseColor: {r: 1, g: 1, b: 1, a: 1}
   colorInversion: 1
   movementDelay: 0.05

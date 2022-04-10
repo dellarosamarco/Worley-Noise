@@ -5,6 +5,7 @@ using UnityEngine;
 public class WorleyNoiseTexture : MonoBehaviour
 {
     [Header("Components")]
+    public WorleyNoiseMesh worleyNoiseMesh;
     private GameObject worleyNoise;
     private SpriteRenderer worleyNoiseSpriteRenderer;
     private Texture2D worleyNoiseTexture;
@@ -69,6 +70,8 @@ public class WorleyNoiseTexture : MonoBehaviour
         generatePointsTargets();
 
         startCellIteration();
+
+        generateWorleyNoiseMesh();
     }
 
     void generateWorleyNoiseTexture()
@@ -352,6 +355,18 @@ public class WorleyNoiseTexture : MonoBehaviour
         finalIndex = (yIndex - 1) * totalChunks.x + xIndex;
 
         return finalIndex - 1;
+    }
+
+    private void generateWorleyNoiseMesh()
+    {
+        StartCoroutine(
+            worleyNoiseMesh.GenerateMesh(
+                gridSize.x / pixelsPerUnit, 
+                gridSize.y / pixelsPerUnit,
+                worleyNoiseTexture,
+                pixelsPerUnit
+            )
+        );
     }
 
     private void Update()
