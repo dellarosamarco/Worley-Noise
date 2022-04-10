@@ -74,6 +74,7 @@ public class WorleyNoiseTexture : MonoBehaviour
     void generateWorleyNoiseTexture()
     {
         worleyNoise = new GameObject("Worley Noise");
+        worleyNoise.transform.rotation = Quaternion.Euler(90, 0, 0);
 
         worleyNoiseTexture = new Texture2D(gridSize.x, gridSize.y, TextureFormat.RGBA32, false, linear:false);
         worleyNoiseTexture.filterMode = FilterMode.Trilinear;
