@@ -57,6 +57,14 @@ public class WorleyNoiseTexture : MonoBehaviour
 
     private void Start()
     {
+        init();
+    }
+
+    public void init()
+    {
+        if(worleyNoise != null)
+            Destroy(worleyNoise);
+
         dynamicBaseColorTarget = baseColor;
 
         generateWorleyNoiseTexture();

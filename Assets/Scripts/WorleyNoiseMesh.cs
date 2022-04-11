@@ -10,6 +10,10 @@ public class WorleyNoiseMesh : MonoBehaviour
     [Header("Settings")]
     public Vector3 squareSize;
 
+    [Header("Rendering settings")]
+    public bool skipMeshGenerationRendering;
+    public bool skipWorleyNoiseGenerationRendering;
+
     [Header("Components")]
     public Transform meshTransform;
     public MeshFilter meshFilter;
@@ -31,6 +35,7 @@ public class WorleyNoiseMesh : MonoBehaviour
         int pixelsPerUnit
     )
     {
+        verticesMap = new Dictionary<Vector2, int>();
         mesh = new Mesh();
         meshFilter.mesh = mesh;
 
@@ -63,8 +68,13 @@ public class WorleyNoiseMesh : MonoBehaviour
             for (int x = 0; x < xSize-1; x++)
             {
                 triangles = triangles.Concat(generateSquareMesh(z * (xSize - 1) + z + x, (xSize - 1))).ToArray();
+
+                if (!skipMeshGenerationRendering)
+                {
+                    yield return null;
+                }
+
                 updateMesh();
-                yield return null;
             }
         }
 
@@ -94,10 +104,14 @@ public class WorleyNoiseMesh : MonoBehaviour
                     break;
                 }
 
-                updateMesh();
                 vertexIndex.y += squareSize.z;
-                Debug.Log(vertexIndex.y);
-                yield return null;
+
+                updateMesh();
+
+                if (!skipWorleyNoiseGenerationRendering)
+                {
+                    yield return null;
+                }
             }
 
             vertexIndex.x += squareSize.x;
