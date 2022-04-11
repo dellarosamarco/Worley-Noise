@@ -1,4 +1,4 @@
-# Worley Noise - C#
+# Worley Noise 3D / 2D - C#
 
 https://user-images.githubusercontent.com/96957446/162815394-2712f5f7-aafd-4413-aabe-149514623e7a.mp4
 
