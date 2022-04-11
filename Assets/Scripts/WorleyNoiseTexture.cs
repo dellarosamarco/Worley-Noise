@@ -361,7 +361,7 @@ public class WorleyNoiseTexture : MonoBehaviour
     {
         StartCoroutine(
             worleyNoiseMesh.GenerateMesh(
-                gridSize.x / pixelsPerUnit, 
+                gridSize.x / pixelsPerUnit,
                 gridSize.y / pixelsPerUnit,
                 worleyNoiseTexture,
                 pixelsPerUnit
