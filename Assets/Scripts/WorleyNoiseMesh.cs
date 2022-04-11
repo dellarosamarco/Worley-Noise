@@ -7,6 +7,9 @@ public class WorleyNoiseMesh : MonoBehaviour
 {
     private static WorleyNoiseMesh instance;
 
+    [Header("Settings")]
+    public Vector3 squareSize;
+
     [Header("Components")]
     public Transform meshTransform;
     public MeshFilter meshFilter;
@@ -30,8 +33,6 @@ public class WorleyNoiseMesh : MonoBehaviour
     {
         mesh = new Mesh();
         meshFilter.mesh = mesh;
-
-        Vector3 squareSize = new Vector3(0.5f, 0f, 0.5f);
 
         float xOffset = -gridSizeX / 2;
         float yOffset = -4;
@@ -74,23 +75,56 @@ public class WorleyNoiseMesh : MonoBehaviour
 
     public IEnumerator setWorleyNoise(Texture2D worleyNoiseTexture, int pixelsPerUnit)
     {
-        int textureWidth = worleyNoiseTexture.width / pixelsPerUnit;
-        int textureHeight = worleyNoiseTexture.height / pixelsPerUnit;
+        int resolutionScale = pixelsPerUnit;
 
-        for (int x = 0; x < textureWidth; x++)
+        int textureWidth = worleyNoiseTexture.width / resolutionScale;
+        int textureHeight = worleyNoiseTexture.height / resolutionScale;
+
+        Vector2 vertexIndex = Vector2.zero;
+
+        for (int x = 0; x < worleyNoiseTexture.width; x += resolutionScale / (int)(1 / squareSize.x))
         {
-            for (int z = 0; z < textureHeight; z++)
+            for (int y = 0; y < worleyNoiseTexture.height; y += resolutionScale / (int)(1 / squareSize.z))
             {
-                float alpha = worleyNoiseTexture.GetPixel(x * pixelsPerUnit, z * pixelsPerUnit).a;
-                vertices[verticesMap[new Vector2(x, z)]].y += alpha;
+                float alpha = worleyNoiseTexture.GetPixel(x, y).a;
+                vertices[verticesMap[vertexIndex]].y += alpha;
                 updateMesh();
+                vertexIndex.y += squareSize.z;
                 yield return null;
             }
+
+            vertexIndex.x += squareSize.x;
+            vertexIndex.y = 0;
         }
 
-        //for (int i = 0; i < vertices.Length; i++)
+        //for (int x = 0; x < worleyNoiseTexture.width; x += resolutionScale)
         //{
-        //    Debug.Log(vertices[i].y);
+        //    for (int y = 0; y < worleyNoiseTexture.height; y += resolutionScale)
+        //    {
+        //        float alpha = worleyNoiseTexture.GetPixel(x, y).a;
+        //        vertices[verticesMap[vertexIndex]].y += alpha;
+        //        updateMesh();
+        //        vertexIndex.y += squareSize.z;
+        //        yield return null;
+        //    }
+
+        //    vertexIndex.x += squareSize.x;
+        //    vertexIndex.y = 0;
+        //}
+
+        //for (int x = 0; x < textureWidth; x++)
+        //{
+        //    for (int z = 0; z < textureHeight; z++)
+        //    {
+        //        float alpha = worleyNoiseTexture.GetPixel(x * resolutionScale, z * resolutionScale).a;
+        //        vertices[verticesMap[vertexIndex]].y += alpha;
+        //        updateMesh();
+        //        vertexIndex.y += squareSize.z;
+        //        yield return null;
+        //    }
+
+        //    vertexIndex.x += squareSize.x;
+        //    vertexIndex.y = 0;
         //}
     }
 
