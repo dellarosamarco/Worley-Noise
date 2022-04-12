@@ -5,9 +5,9 @@ https://user-images.githubusercontent.com/96957446/162939701-a073c575-a89d-4e4f-
 https://user-images.githubusercontent.com/96957446/162946850-109efa1f-628b-4ec0-a6b2-a2837ccf2f7e.mp4
 
 <details open>
-    <summary>Open</summary>
-    
-    ```C#
+  <summary>Code</summary>
+  
+  ```C#
     public IEnumerator GenerateMesh(int gridSizeX, int gridSizeZ, Texture2D worleyNoiseTexture,int pixelsPerUnit)
     {
         Mesh mesh = new Mesh();
@@ -49,7 +49,8 @@ https://user-images.githubusercontent.com/96957446/162946850-109efa1f-628b-4ec0-
             }
         }
     }
-    ```
+  ```
+  
 </details>
 
 https://user-images.githubusercontent.com/96957446/161838754-bb8a69a5-e4c0-4d43-bd40-52677e82d0e1.mp4
