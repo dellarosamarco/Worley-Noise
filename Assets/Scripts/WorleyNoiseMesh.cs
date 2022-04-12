@@ -38,6 +38,7 @@ public class WorleyNoiseMesh : MonoBehaviour
         int pixelsPerUnit
     )
     {
+        Debug.Log("x");
         verticesMap = new Dictionary<Vector2, int>();
         mesh = new Mesh();
         meshFilter.mesh = mesh;

@@ -32,6 +32,9 @@ public class WorleyNoiseTexture : MonoBehaviour
     public bool viewChunks = false;
     public bool viewChunksPoints = false;
 
+    [Header("Advanced Mesh Settings")]
+    public bool dynamicMesh = false;
+
     [Header("Cells Iteration Visualization")]
     public bool visualizeCellsIteration = false;
     public bool singleCellRendering = false;
@@ -226,6 +229,9 @@ public class WorleyNoiseTexture : MonoBehaviour
         }
 
         worleyNoiseTexture.Apply();
+
+        if (dynamicMesh)
+            generateWorleyNoiseMesh();
     }
 
     IEnumerator cellsIterationCoroutine()
@@ -320,6 +326,9 @@ public class WorleyNoiseTexture : MonoBehaviour
             }
             
         }
+
+        if(dynamicMesh)
+            generateWorleyNoiseMesh();
     }
 
     void generatePointsTargets()
