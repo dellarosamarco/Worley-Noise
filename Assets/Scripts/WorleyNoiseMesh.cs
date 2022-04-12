@@ -10,6 +10,7 @@ public class WorleyNoiseMesh : MonoBehaviour
     [Header("Settings")]
     public Vector3 squareSize;
     public float noiseMultiplier;
+    public Vector2 randomNoise = Vector2.zero;
     public bool setMeshColors = true;
 
     [Header("Rendering settings")]
@@ -105,6 +106,7 @@ public class WorleyNoiseMesh : MonoBehaviour
 
                 try
                 {
+                    alpha += Random.Range(randomNoise.x, randomNoise.y);
                     float height = vertices[verticesMap[vertexIndex]].y + (alpha * noiseMultiplier);
                     vertices[verticesMap[vertexIndex]].y = height;
 

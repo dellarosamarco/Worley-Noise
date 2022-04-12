@@ -263,14 +263,14 @@ MonoBehaviour:
   baseColor: {r: 1, g: 1, b: 1, a: 1}
   colorInversion: 1
   movementDelay: 0.05
-  dynamicChunks: 1
+  dynamicChunks: 0
   dynamicChunksSpeed: 15
   dynamicBaseColor: 0
   dynamicBaseColorChangeDelay: 0.05
   renderTargets: 0
   viewChunks: 0
   viewChunksPoints: 0
-  dynamicMesh: 1
+  dynamicMesh: 0
   visualizeCellsIteration: 0
   singleCellRendering: 0
   columnRendering: 0
@@ -552,6 +552,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   squareSize: {x: 0.5, y: 0, z: 0.5}
   noiseMultiplier: 1
+  randomNoise: {x: 0.1, y: 0.2}
   setMeshColors: 1
   skipMeshGenerationRendering: 1
   skipWorleyNoiseGenerationRendering: 1
