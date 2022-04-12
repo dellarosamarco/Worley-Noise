@@ -9,6 +9,8 @@ public class WorleyNoiseMesh : MonoBehaviour
 
     [Header("Settings")]
     public Vector3 squareSize;
+    public float noiseMultiplier;
+    public bool setMeshColors = true;
 
     [Header("Rendering settings")]
     public bool skipMeshGenerationRendering;
@@ -38,7 +40,6 @@ public class WorleyNoiseMesh : MonoBehaviour
         int pixelsPerUnit
     )
     {
-        Debug.Log("x");
         verticesMap = new Dictionary<Vector2, int>();
         mesh = new Mesh();
         meshFilter.mesh = mesh;
@@ -104,9 +105,11 @@ public class WorleyNoiseMesh : MonoBehaviour
 
                 try
                 {
-                    float height = vertices[verticesMap[vertexIndex]].y + alpha;
+                    float height = vertices[verticesMap[vertexIndex]].y + (alpha * noiseMultiplier);
                     vertices[verticesMap[vertexIndex]].y = height;
-                    colors[verticesMap[vertexIndex]] = gradient.Evaluate(alpha);
+
+                    if(setMeshColors)
+                        colors[verticesMap[vertexIndex]] = gradient.Evaluate(alpha);
                 }
                 catch
                 {
@@ -149,7 +152,9 @@ public class WorleyNoiseMesh : MonoBehaviour
 
         mesh.vertices = vertices;
         mesh.triangles = triangles;
-        mesh.colors = colors;
+
+        if(setMeshColors)
+            mesh.colors = colors;
 
         mesh.RecalculateNormals();
     }
