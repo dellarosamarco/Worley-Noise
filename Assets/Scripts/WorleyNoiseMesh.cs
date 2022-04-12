@@ -22,6 +22,9 @@ public class WorleyNoiseMesh : MonoBehaviour
     private Vector3[] vertices;
     private Dictionary<Vector2, int> verticesMap = new Dictionary<Vector2, int>();
     private int[] triangles;
+    private Color[] colors;
+
+    public Gradient gradient;
 
     private void Awake()
     {
@@ -57,6 +60,7 @@ public class WorleyNoiseMesh : MonoBehaviour
             {
                 vertices[index] = new Vector3(x + xOffset, yOffset, z);
                 verticesMap.Add(new Vector2(x, z), index);
+
                 index++;
             }
         }
@@ -89,6 +93,8 @@ public class WorleyNoiseMesh : MonoBehaviour
 
         Vector2 vertexIndex = Vector2.zero;
 
+        colors = new Color[vertices.Length];
+
         for (int x = 0; x <= worleyNoiseTexture.width; x += resolutionScale / (int)(1 / squareSize.x))
         {
             for (int y = 0; y <= worleyNoiseTexture.height; y += resolutionScale / (int)(1 / squareSize.z))
@@ -97,7 +103,9 @@ public class WorleyNoiseMesh : MonoBehaviour
 
                 try
                 {
-                    vertices[verticesMap[vertexIndex]].y += alpha;
+                    float height = vertices[verticesMap[vertexIndex]].y + alpha;
+                    vertices[verticesMap[vertexIndex]].y = height;
+                    colors[verticesMap[vertexIndex]] = gradient.Evaluate(alpha);
                 }
                 catch
                 {
@@ -140,6 +148,7 @@ public class WorleyNoiseMesh : MonoBehaviour
 
         mesh.vertices = vertices;
         mesh.triangles = triangles;
+        mesh.colors = colors;
 
         mesh.RecalculateNormals();
     }
