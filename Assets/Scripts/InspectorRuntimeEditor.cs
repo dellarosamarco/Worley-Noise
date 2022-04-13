@@ -2,7 +2,7 @@ using UnityEditor;
 using UnityEngine;
 
 [CustomEditor(typeof(WorleyNoiseTexture))]
-public class RuntimeEditor : Editor
+public class InspectorRuntimeEditor : Editor
 {
     override public void OnInspectorGUI()
     {
