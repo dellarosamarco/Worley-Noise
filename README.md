@@ -4,7 +4,7 @@ https://user-images.githubusercontent.com/96957446/162939701-a073c575-a89d-4e4f-
 
 https://user-images.githubusercontent.com/96957446/162946850-109efa1f-628b-4ec0-a6b2-a2837ccf2f7e.mp4
 
-<details open>
+<details close>
   <summary>Code</summary>
   
   ```C#
