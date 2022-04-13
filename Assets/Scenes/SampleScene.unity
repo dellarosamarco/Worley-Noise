@@ -139,7 +139,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0
@@ -263,14 +263,15 @@ MonoBehaviour:
   baseColor: {r: 1, g: 1, b: 1, a: 1}
   colorInversion: 1
   movementDelay: 0.05
-  dynamicChunks: 0
+  dynamicChunks: 1
   dynamicChunksSpeed: 15
   dynamicBaseColor: 0
   dynamicBaseColorChangeDelay: 0.05
-  renderTargets: 0
-  viewChunks: 0
-  viewChunksPoints: 0
-  dynamicMesh: 0
+  renderTargets: 1
+  viewChunks: 1
+  viewChunksPoints: 1
+  generateMesh: 0
+  dynamicMesh: 1
   visualizeCellsIteration: 0
   singleCellRendering: 0
   columnRendering: 0
@@ -379,26 +380,13 @@ GameObject:
   m_Component:
   - component: {fileID: 1138714000}
   - component: {fileID: 1138713999}
-  - component: {fileID: 1138713998}
   m_Layer: 0
   m_Name: 3D WORLEY NOISE CAMERA
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1138713998
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1138713997}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 23c1ce4fb46143f46bc5cb5224c934f6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_IsActive: 0
 --- !u!20 &1138713999
 Camera:
   m_ObjectHideFlags: 0
@@ -552,7 +540,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   squareSize: {x: 0.5, y: 0, z: 0.5}
   noiseMultiplier: 1
-  randomNoise: {x: 0.1, y: 0.2}
+  randomNoise: {x: 0, y: 0}
   setMeshColors: 1
   skipMeshGenerationRendering: 1
   skipWorleyNoiseGenerationRendering: 1
@@ -560,32 +548,32 @@ MonoBehaviour:
   meshFilter: {fileID: 1252226001}
   gradient:
     serializedVersion: 2
-    key0: {r: 0.03773582, g: 0.029725859, b: 0.029725859, a: 1}
-    key1: {r: 0.5754717, g: 0.3555981, b: 0.3555981, a: 1}
-    key2: {r: 0, g: 0, b: 0, a: 0}
-    key3: {r: 0, g: 0, b: 0, a: 0}
-    key4: {r: 0, g: 0, b: 0, a: 0}
-    key5: {r: 0, g: 0, b: 0, a: 0}
+    key0: {r: 0.3019758, g: 0.42904693, b: 0.5471698, a: 1}
+    key1: {r: 0.0851831, g: 0.058479294, b: 0.058479294, a: 1}
+    key2: {r: 0.5754717, g: 0.3555981, b: 0.3555981, a: 1}
+    key3: {r: 0.84386593, g: 0.5702734, b: 4.735749, a: 1}
+    key4: {r: 0.20092389, g: 0.35393935, b: 1.827451, a: 0}
+    key5: {r: 0.20092389, g: 0.35393935, b: 1.827451, a: 0}
     key6: {r: 0, g: 0, b: 0, a: 0}
-    key7: {r: 0, g: 0, b: 0, a: 0}
+    key7: {r: 4.8245306, g: 0.051470306, b: 0, a: 0}
     ctime0: 0
-    ctime1: 65535
-    ctime2: 0
-    ctime3: 0
-    ctime4: 0
-    ctime5: 0
-    ctime6: 0
-    ctime7: 0
+    ctime1: 21974
+    ctime2: 65535
+    ctime3: 16769
+    ctime4: 22552
+    ctime5: 26021
+    ctime6: 30840
+    ctime7: 46453
     atime0: 0
     atime1: 65535
-    atime2: 0
-    atime3: 0
+    atime2: 38743
+    atime3: 64764
     atime4: 0
     atime5: 0
     atime6: 0
     atime7: 0
     m_Mode: 0
-    m_NumColorKeys: 2
+    m_NumColorKeys: 3
     m_NumAlphaKeys: 2
 --- !u!1 &1542758469
 GameObject:

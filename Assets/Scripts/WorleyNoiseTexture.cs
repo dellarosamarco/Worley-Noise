@@ -33,6 +33,7 @@ public class WorleyNoiseTexture : MonoBehaviour
     public bool viewChunksPoints = false;
 
     [Header("Advanced Mesh Settings")]
+    public bool generateMesh = false;
     public bool dynamicMesh = false;
 
     [Header("Cells Iteration Visualization")]
@@ -82,7 +83,8 @@ public class WorleyNoiseTexture : MonoBehaviour
 
         startCellIteration();
 
-        generateWorleyNoiseMesh();
+        if(generateMesh)
+            generateWorleyNoiseMesh();
     }
 
     void generateWorleyNoiseTexture()
@@ -230,7 +232,7 @@ public class WorleyNoiseTexture : MonoBehaviour
 
         worleyNoiseTexture.Apply();
 
-        if (dynamicMesh)
+        if (dynamicMesh && generateMesh)
             generateWorleyNoiseMesh();
     }
 
@@ -327,7 +329,7 @@ public class WorleyNoiseTexture : MonoBehaviour
             
         }
 
-        if(dynamicMesh)
+        if(dynamicMesh && generateMesh)
             generateWorleyNoiseMesh();
     }
 
@@ -440,23 +442,22 @@ public class WorleyNoiseTexture : MonoBehaviour
     {
         if(dynamicChunks && renderTargets)
         {
+            tempVector3.y = -4.5f;
             for (int i = 0; i < points.Count; i++)
             {
-                float pointsX = (points[i].x / (float)pixelsPerUnit) - gridSize.x / 2 / (float)pixelsPerUnit;
-                float pointsY = (points[i].y / (float)pixelsPerUnit) - gridSize.y / 2 / (float)pixelsPerUnit;
+                float pointsX = (points[i].x / (float)pixelsPerUnit) - gridSize.x / 2f / (float)pixelsPerUnit;
+                float pointsZ = (points[i].y / (float)pixelsPerUnit) - gridSize.y / 2f / (float)pixelsPerUnit + gridSize.y / 2f / (float)pixelsPerUnit;
 
                 tempVector3.x = pointsX;
-                tempVector3.y = pointsY;
-                tempVector3.z = 0;
+                tempVector3.z = pointsZ;
 
                 Vector3 worldPosPoint = transform.TransformPoint(tempVector3);
 
-                float targetX = (pointsTargets[i].x / (float)pixelsPerUnit) - gridSize.x / 2 / (float)pixelsPerUnit;
-                float targetY = (pointsTargets[i].y / (float)pixelsPerUnit) - gridSize.y / 2 / (float)pixelsPerUnit;
+                float targetX = (pointsTargets[i].x / (float)pixelsPerUnit) - gridSize.x / 2f / (float)pixelsPerUnit;
+                float targetZ = (pointsTargets[i].y / (float)pixelsPerUnit) - gridSize.y / 2f / (float)pixelsPerUnit + gridSize.y / 2f / (float)pixelsPerUnit;
 
                 tempVector3.x = targetX;
-                tempVector3.y = targetY;
-                tempVector3.z = 0;
+                tempVector3.z = targetZ;
 
                 Vector3 worldPosTarget = transform.TransformPoint(tempVector3);
 
@@ -472,24 +473,27 @@ public class WorleyNoiseTexture : MonoBehaviour
             float xChunkSize = (gridSize.x / (float)pixelsPerUnit) / totalChunks.x;
             float yChunkSize = (gridSize.y / (float)pixelsPerUnit) / totalChunks.y;
 
+            startChunkLine.y = -4.5f;
+            endChunkLine.y = -4.5f;
+
             for (int i = 0; i < totalChunks.x + 1; i++)
             {
-                startChunkLine.x = -gridSize.x / 2 / (float)pixelsPerUnit + xChunkSize * i;
-                startChunkLine.y = gridSize.y / 2 / (float)pixelsPerUnit;
+                startChunkLine.x = -gridSize.x / 2f / (float)pixelsPerUnit + xChunkSize * i;
+                startChunkLine.z = (gridSize.y / 2f / (float)pixelsPerUnit) * 2;
 
                 endChunkLine.x = startChunkLine.x;
-                endChunkLine.y = -startChunkLine.y;
+                endChunkLine.z = 0;
 
                 Debug.DrawLine(startChunkLine, endChunkLine, Color.yellow);
             }
 
             for (int i = 0; i < totalChunks.y + 1; i++)
             {
-                startChunkLine.x = -gridSize.x / 2 / (float)pixelsPerUnit;
-                startChunkLine.y = -gridSize.y / 2 / (float)pixelsPerUnit + yChunkSize * i;
+                startChunkLine.x = -gridSize.x / 2f / (float)pixelsPerUnit;
+                startChunkLine.z = yChunkSize * i;
 
                 endChunkLine.x = -startChunkLine.x;
-                endChunkLine.y = startChunkLine.y;
+                endChunkLine.z = startChunkLine.z;
 
                 Debug.DrawLine(startChunkLine, endChunkLine, Color.yellow);
             }
@@ -502,9 +506,9 @@ public class WorleyNoiseTexture : MonoBehaviour
         {
             for (int i = 0; i < points.Count; i++)
             {
-                tempVector3.x = points[i].x / (float)pixelsPerUnit - gridSize.x / 2 / (float)pixelsPerUnit;
-                tempVector3.y = points[i].y / (float)pixelsPerUnit - gridSize.y / 2 / (float)pixelsPerUnit;
-                tempVector3.z = 0;
+                tempVector3.x = points[i].x / (float)pixelsPerUnit - gridSize.x / 2f / (float)pixelsPerUnit;
+                tempVector3.y = -4.5f;
+                tempVector3.z = points[i].y / (float)pixelsPerUnit;
 
                 Gizmos.DrawSphere(tempVector3, 0.1f);
             }
