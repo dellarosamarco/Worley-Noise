@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class WorleyNoiseTexture : MonoBehaviour
 {
+    public static WorleyNoiseTexture instance;
+
     [Header("Components")]
     public WorleyNoiseMesh worleyNoiseMesh;
     private GameObject worleyNoise;
@@ -58,6 +60,11 @@ public class WorleyNoiseTexture : MonoBehaviour
     private Vector2 tempVector;
     private Vector2Int tempIntVector;
     private Vector3 tempVector3 = Vector3.zero;
+
+    private void Awake()
+    {
+        instance = this;
+    }
 
     private void Start()
     {
@@ -177,7 +184,7 @@ public class WorleyNoiseTexture : MonoBehaviour
             _cellsIterationCoroutine = StartCoroutine(cellsIterationCoroutine());
     }
 
-    void cellsIteration()
+    public void cellsIteration()
     {
         if (points.Count == 0)
             return;

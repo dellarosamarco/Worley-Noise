@@ -9,11 +9,15 @@ public class Runtime2DConfiguration : MonoBehaviour
     public GameObject content;
     public RectTransform panelRectTransform;
 
+    [Header("2D Configuration Components")]
+    public Slider NoiseMultiplier2D;
+
     private float initialPanelRectTransformHeigh;
 
     private void Start()
     {
         initialPanelRectTransformHeigh = panelRectTransform.sizeDelta.y;
+        NoiseMultiplier2D.onValueChanged.AddListener(delegate { sliderHandler(NoiseMultiplier2D.value); });
     }
 
     public void onToggle()
@@ -27,4 +31,13 @@ public class Runtime2DConfiguration : MonoBehaviour
                 isOpened ? 75 : initialPanelRectTransformHeigh
             );
     }
+
+    //2D CHANGE CONFIGURATION EVENTS
+    #region
+    public void sliderHandler(float value)
+    {
+        WorleyNoiseTexture.instance.noiseMultiplier = value;
+        WorleyNoiseTexture.instance.cellsIteration();
+    }
+    #endregion
 }
