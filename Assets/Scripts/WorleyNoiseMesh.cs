@@ -5,7 +5,7 @@ using System.Collections;
 
 public class WorleyNoiseMesh : MonoBehaviour
 {
-    private static WorleyNoiseMesh instance;
+    public static WorleyNoiseMesh instance;
 
     [Header("Settings")]
     public Vector3 squareSize;

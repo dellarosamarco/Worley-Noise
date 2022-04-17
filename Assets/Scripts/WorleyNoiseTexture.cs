@@ -383,7 +383,7 @@ public class WorleyNoiseTexture : MonoBehaviour
         return finalIndex - 1;
     }
 
-    private void generateWorleyNoiseMesh()
+    public void generateWorleyNoiseMesh()
     {
         StartCoroutine(
             worleyNoiseMesh.GenerateMesh(
