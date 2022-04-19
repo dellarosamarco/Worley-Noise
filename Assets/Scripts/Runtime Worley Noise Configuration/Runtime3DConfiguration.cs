@@ -3,13 +3,20 @@ using UnityEngine;
 
 public class Runtime3DConfiguration : MonoBehaviour
 {
-    [Header("2D Configuration Components")]
+    [Header("3D Configuration Components")]
+    public Toggle camera3D;
     public Toggle generateMesh;
     public Toggle dynamicMesh;
     public Slider noiseMultiplier;
 
     private void Start()
     {
+        camera3D.isOn = false;
+        camera3D.onValueChanged.AddListener(delegate
+        {
+            eventsHandler(camera3D.isOn, Event3D.CAMERA_3D);
+        });
+
         generateMesh.isOn = false;
         generateMesh.onValueChanged.AddListener(delegate {
             eventsHandler(generateMesh.isOn, Event3D.GENERATE_MESH);
@@ -54,6 +61,10 @@ public class Runtime3DConfiguration : MonoBehaviour
                 break;
             case Event3D.DYNAMIC_MESH:
                 WorleyNoiseTexture.instance.dynamicMesh = value;
+                break;
+            case Event3D.CAMERA_3D:
+                if (value) CameraHandler.instance.set3D();
+                else CameraHandler.instance.set2D();
                 break;
         }
 

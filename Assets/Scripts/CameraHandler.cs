@@ -4,15 +4,24 @@ using UnityEngine;
 
 public class CameraHandler : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public static CameraHandler instance;
+    public GameObject camera3D;
+    public GameObject camera2D;
+
+    private void Awake()
     {
-        
+        instance = this;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void set3D()
     {
-        
+        camera3D.SetActive(true);
+        camera2D.SetActive(false);
+    }
+
+    public void set2D()
+    {
+        camera3D.SetActive(false);
+        camera2D.SetActive(true);
     }
 }
