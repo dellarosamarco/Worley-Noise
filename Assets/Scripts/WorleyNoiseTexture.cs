@@ -190,7 +190,6 @@ public class WorleyNoiseTexture : MonoBehaviour
             return;
 
         int xChunkSize = gridSize.x / totalChunks.x;
-        int yChunkSize = gridSize.y / totalChunks.y;
 
         Vector2 tempCell = Vector2.zero;
 
@@ -249,7 +248,6 @@ public class WorleyNoiseTexture : MonoBehaviour
             StopCoroutine(_cellsIterationCoroutine);
 
         int xChunkSize = gridSize.x / totalChunks.x;
-        int yChunkSize = gridSize.y / totalChunks.y;
 
         Vector2 tempCell = Vector2.zero;
 

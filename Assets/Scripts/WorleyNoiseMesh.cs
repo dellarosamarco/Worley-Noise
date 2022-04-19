@@ -32,6 +32,8 @@ public class WorleyNoiseMesh : MonoBehaviour
     private void Awake()
     {
         instance = this;
+        mesh = new Mesh();
+        meshTransform.position = Vector3.zero;
     }
 
     public IEnumerator GenerateMesh(
@@ -42,13 +44,10 @@ public class WorleyNoiseMesh : MonoBehaviour
     )
     {
         verticesMap = new Dictionary<Vector2, int>();
-        mesh = new Mesh();
         meshFilter.mesh = mesh;
 
         float xOffset = -gridSizeX / 2;
         float yOffset = -4;
-
-        meshTransform.position = Vector3.zero;
 
         int xSize = gridSizeX * (int)(1 / squareSize.x) + 1;
         int zSize = gridSizeZ * (int)(1 / squareSize.z) + 1;

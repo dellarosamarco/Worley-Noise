@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public enum Event2D
 {
     NOISE_MULTIPLIER,
@@ -14,5 +10,6 @@ public enum Event2D
 public enum Event3D
 {
     GENERATE_MESH,
-    DYNAMIC_MESH
+    DYNAMIC_MESH,
+    NOISE_MULTIPLIER
 }

@@ -6,6 +6,7 @@ public class Runtime3DConfiguration : MonoBehaviour
     [Header("2D Configuration Components")]
     public Toggle generateMesh;
     public Toggle dynamicMesh;
+    public Slider noiseMultiplier;
 
     private void Start()
     {
@@ -18,6 +19,11 @@ public class Runtime3DConfiguration : MonoBehaviour
         dynamicMesh.onValueChanged.AddListener(delegate {
             eventsHandler(dynamicMesh.isOn, Event3D.DYNAMIC_MESH);
         });
+
+        noiseMultiplier.onValueChanged.AddListener(delegate
+        {
+            eventsHandler(noiseMultiplier.value, Event3D.NOISE_MULTIPLIER);
+        });
     }
 
     //3D CHANGE CONFIGURATION EVENTS
@@ -26,7 +32,9 @@ public class Runtime3DConfiguration : MonoBehaviour
     {
         switch (_event)
         {
-            
+            case Event3D.NOISE_MULTIPLIER:
+                WorleyNoiseMesh.instance.noiseMultiplier = value;
+                break;
         }
 
         WorleyNoiseTexture.instance.cellsIteration();
