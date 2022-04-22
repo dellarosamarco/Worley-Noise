@@ -4,7 +4,10 @@ public enum Event2D
     COLOR_INVERSION,
     DYNAMIC_CELLULAR,
     DYNAMIC_COLOR,
-    CELLULAR_SPEED
+    CELLULAR_SPEED,
+    R_BASE_COLOR,
+    G_BASE_COLOR,
+    B_BASE_COLOR
 }
 
 public enum Event3D

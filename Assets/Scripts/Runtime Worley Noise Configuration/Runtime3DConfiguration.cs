@@ -57,7 +57,7 @@ public class Runtime3DConfiguration : MonoBehaviour
                 if (value)
                     WorleyNoiseTexture.instance.generateWorleyNoiseMesh();
                 else
-                    WorleyNoiseMesh.instance.meshFilter.mesh.Clear();
+                    WorleyNoiseMesh.instance.clear();
                 break;
             case Event3D.DYNAMIC_MESH:
                 WorleyNoiseTexture.instance.dynamicMesh = value;

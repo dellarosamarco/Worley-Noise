@@ -160,6 +160,12 @@ public class WorleyNoiseMesh : MonoBehaviour
         mesh.RecalculateNormals();
     }
 
+    public void clear()
+    {
+        mesh.Clear();
+        vertices = null;
+    }
+
     private void OnDrawGizmos()
     {
         if (vertices == null)

@@ -7,3 +7,5 @@
 /obj
 *.csproj
 *.sln
+Assets/TextMesh Pro
+Assets/TextMesh Pro.meta

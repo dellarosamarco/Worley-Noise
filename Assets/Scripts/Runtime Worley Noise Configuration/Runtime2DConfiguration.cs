@@ -11,6 +11,9 @@ public class Runtime2DConfiguration : MonoBehaviour
     public Toggle colorInversion;
     public Toggle dynamicCellular;
     public Toggle dynamicColor;
+    public Slider RBaseColor;
+    public Slider GBaseColor;
+    public Slider BBaseColor;
 
     private void Start()
     {
@@ -35,6 +38,18 @@ public class Runtime2DConfiguration : MonoBehaviour
         dynamicColor.onValueChanged.AddListener(delegate {
             eventsHandler(dynamicColor.isOn, Event2D.DYNAMIC_COLOR);
         });
+
+        RBaseColor.onValueChanged.AddListener(delegate {
+            eventsHandler(RBaseColor.value, Event2D.R_BASE_COLOR);
+        });
+
+        GBaseColor.onValueChanged.AddListener(delegate {
+            eventsHandler(GBaseColor.value, Event2D.G_BASE_COLOR);
+        });
+
+        BBaseColor.onValueChanged.AddListener(delegate {
+            eventsHandler(BBaseColor.value, Event2D.B_BASE_COLOR);
+        });
     }
 
     //2D CHANGE CONFIGURATION EVENTS
@@ -48,6 +63,15 @@ public class Runtime2DConfiguration : MonoBehaviour
                 break;
             case Event2D.CELLULAR_SPEED:
                 WorleyNoiseTexture.instance.dynamicChunksSpeed = value;
+                break;
+            case Event2D.R_BASE_COLOR:
+                WorleyNoiseTexture.instance.baseColor.r = value / 255f;
+                break;
+            case Event2D.G_BASE_COLOR:
+                WorleyNoiseTexture.instance.baseColor.g = value / 255f;
+                break;
+            case Event2D.B_BASE_COLOR:
+                WorleyNoiseTexture.instance.baseColor.b = value / 255f;
                 break;
         }
 
