@@ -15,5 +15,6 @@ public enum Event3D
     GENERATE_MESH,
     DYNAMIC_MESH,
     NOISE_MULTIPLIER,
-    CAMERA_3D
+    CAMERA_3D,
+    GRADIENT
 }

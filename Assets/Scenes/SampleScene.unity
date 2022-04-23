@@ -3185,10 +3185,10 @@ RectTransform:
   m_Father: {fileID: 654840973}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 300, y: -317.5}
+  m_SizeDelta: {x: 600, y: 635}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &496019768
 MonoBehaviour:
@@ -3228,9 +3228,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
-    m_Left: 0
+    m_Left: -30
     m_Right: 0
-    m_Top: 0
+    m_Top: 30
     m_Bottom: 0
   m_ChildAlignment: 1
   m_Spacing: 0
@@ -3277,10 +3277,10 @@ RectTransform:
   m_Father: {fileID: 654840973}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -300, y: -317.5}
+  m_SizeDelta: {x: 600, y: 635}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &499688418
 MonoBehaviour:
@@ -3314,7 +3314,7 @@ MonoBehaviour:
   m_Padding:
     m_Left: 45
     m_Right: 0
-    m_Top: 0
+    m_Top: 30
     m_Bottom: 0
   m_ChildAlignment: 1
   m_Spacing: 0
@@ -4380,7 +4380,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 654840973}
-  - component: {fileID: 654840974}
   m_Layer: 5
   m_Name: Left column
   m_TagString: Untagged
@@ -4397,7 +4396,7 @@ RectTransform:
   m_GameObject: {fileID: 654840972}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.8, y: 0.8, z: 1}
   m_Children:
   - {fileID: 496019767}
   - {fileID: 499688417}
@@ -4405,36 +4404,10 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 200, y: 0}
-  m_SizeDelta: {x: 475, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -0.0006713867, y: 0}
+  m_SizeDelta: {x: 320.03, y: 180}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &654840974
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 654840972}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 30649d3a9faa99c48a7b1166b86bf2a0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Padding:
-    m_Left: 90
-    m_Right: 0
-    m_Top: 45
-    m_Bottom: 99999
-  m_ChildAlignment: 0
-  m_Spacing: 0
-  m_ChildForceExpandWidth: 1
-  m_ChildForceExpandHeight: 1
-  m_ChildControlWidth: 1
-  m_ChildControlHeight: 1
-  m_ChildScaleWidth: 0
-  m_ChildScaleHeight: 0
-  m_ReverseArrangement: 0
 --- !u!1 &659226860
 GameObject:
   m_ObjectHideFlags: 0
@@ -4601,7 +4574,7 @@ GameObject:
   - component: {fileID: 698775336}
   - component: {fileID: 698775337}
   m_Layer: 5
-  m_Name: G - BASE COLOR
+  m_Name: B - BASE COLOR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6616,7 +6589,7 @@ GameObject:
   - component: {fileID: 1029519717}
   - component: {fileID: 1029519718}
   m_Layer: 5
-  m_Name: G - BASE COLOR (1)
+  m_Name: B - BASE COLOR (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9526,7 +9499,7 @@ GameObject:
   - component: {fileID: 1669722632}
   - component: {fileID: 1669722633}
   m_Layer: 5
-  m_Name: B - BASE COLOR (1)
+  m_Name: G - BASE COLOR (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9647,6 +9620,12 @@ MonoBehaviour:
   generateMesh: {fileID: 924309566}
   dynamicMesh: {fileID: 1977825209}
   noiseMultiplier: {fileID: 780420118}
+  gradient0R: {fileID: 71038870}
+  gradient0G: {fileID: 1496779877}
+  gradient0B: {fileID: 1368143638}
+  gradient1R: {fileID: 8218840}
+  gradient1G: {fileID: 2088547592}
+  gradient1B: {fileID: 1735011438}
 --- !u!1 &1698571790
 GameObject:
   m_ObjectHideFlags: 0
@@ -11854,7 +11833,7 @@ GameObject:
   - component: {fileID: 2064945044}
   - component: {fileID: 2064945045}
   m_Layer: 5
-  m_Name: B - BASE COLOR
+  m_Name: G - BASE COLOR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

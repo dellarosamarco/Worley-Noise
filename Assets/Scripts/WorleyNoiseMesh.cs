@@ -176,4 +176,9 @@ public class WorleyNoiseMesh : MonoBehaviour
             Gizmos.DrawSphere(vertices[i], 0.05f);
         }
     }
+
+    public void setGradient(GradientColorKey[] colorKey, GradientAlphaKey[] alphaKey)
+    {
+        gradient.SetKeys(colorKey, alphaKey);
+    }
 }

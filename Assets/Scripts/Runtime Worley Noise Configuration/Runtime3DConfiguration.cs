@@ -9,6 +9,14 @@ public class Runtime3DConfiguration : MonoBehaviour
     public Toggle dynamicMesh;
     public Slider noiseMultiplier;
 
+    //Gradient
+    public Slider gradient0R;
+    public Slider gradient0G;
+    public Slider gradient0B;
+    public Slider gradient1R;
+    public Slider gradient1G;
+    public Slider gradient1B;
+
     private void Start()
     {
         camera3D.isOn = false;
@@ -31,6 +39,8 @@ public class Runtime3DConfiguration : MonoBehaviour
         {
             eventsHandler(noiseMultiplier.value, Event3D.NOISE_MULTIPLIER);
         });
+
+        setGradientDelegates();
     }
 
     //3D CHANGE CONFIGURATION EVENTS
@@ -67,6 +77,39 @@ public class Runtime3DConfiguration : MonoBehaviour
                 else CameraHandler.instance.set2D();
                 break;
         }
+
+        WorleyNoiseTexture.instance.cellsIteration();
+    }
+    #endregion
+
+    //3D GRADIENT EVENT
+    #region
+    private void setGradientDelegates()
+    {
+        gradient0R.onValueChanged.AddListener(delegate { gradientEventsHandler(); }); 
+        gradient0G.onValueChanged.AddListener(delegate { gradientEventsHandler(); });
+        gradient0B.onValueChanged.AddListener(delegate { gradientEventsHandler(); });
+        gradient1R.onValueChanged.AddListener(delegate { gradientEventsHandler(); });
+        gradient1G.onValueChanged.AddListener(delegate { gradientEventsHandler(); });
+        gradient1B.onValueChanged.AddListener(delegate { gradientEventsHandler(); });
+    }
+
+    public void gradientEventsHandler()
+    {
+        GradientColorKey[] colorKey = new GradientColorKey[2]; 
+        GradientAlphaKey[] alphaKey = new GradientAlphaKey[2];
+
+        colorKey[0].color = new Color(gradient0R.value / 255f, gradient0G.value / 255f, gradient0B.value / 255f);
+        colorKey[0].time = 0.0f;
+        colorKey[1].color = new Color(gradient1R.value / 255f, gradient1G.value / 255f, gradient1B.value / 255f);
+        colorKey[1].time = 1.0f;
+
+        alphaKey[0].alpha = 1.0f;
+        alphaKey[0].time = 0.0f;
+        alphaKey[1].alpha = 1.0f;
+        alphaKey[1].time = 1.0f;
+
+        WorleyNoiseMesh.instance.setGradient(colorKey, alphaKey);
 
         WorleyNoiseTexture.instance.cellsIteration();
     }
