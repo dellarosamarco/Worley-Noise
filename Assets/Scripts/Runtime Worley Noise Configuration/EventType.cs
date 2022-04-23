@@ -18,3 +18,11 @@ public enum Event3D
     CAMERA_3D,
     GRADIENT
 }
+
+public enum EventDebugDrawing
+{
+    VIEW_CHUNKS,
+    VIEW_CHUNKS_POINTS,
+    VIEW_CHUNKS_TARGETS,
+    VIEW_MESH_VERTICES,
+}

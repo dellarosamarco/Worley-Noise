@@ -16,6 +16,7 @@ public class WorleyNoiseMesh : MonoBehaviour
     [Header("Rendering settings")]
     public bool skipMeshGenerationRendering;
     public bool skipWorleyNoiseGenerationRendering;
+    public bool renderGizmosVertices = true;
 
     [Header("Components")]
     public Transform meshTransform;
@@ -168,7 +169,7 @@ public class WorleyNoiseMesh : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        if (vertices == null)
+        if (vertices == null || !renderGizmosVertices)
             return;
 
         for (int i = 0; i < vertices.Length; i++)
