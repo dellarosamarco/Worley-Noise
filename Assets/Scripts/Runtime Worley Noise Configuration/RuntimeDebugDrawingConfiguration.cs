@@ -60,4 +60,34 @@ public class RuntimeDebugDrawingConfiguration : MonoBehaviour
             WorleyNoiseTexture.instance.cellsIteration();
     }
     #endregion
+
+    //ACTIONS
+    #region
+    public void restart()
+    {
+        WorleyNoiseTexture.instance.init();
+    }
+
+    public void randomGeneration()
+    {
+        WorleyNoiseTexture.instance.noiseMultiplier = Random.Range(4f, 17.5f);
+        WorleyNoiseTexture.instance.colorInversion = Random.Range(0, 10) > 5;
+        WorleyNoiseTexture.instance.dynamicChunks = Random.Range(0, 10) > 5;
+        WorleyNoiseTexture.instance.dynamicChunksSpeed = Random.Range(0f, 100f);
+        WorleyNoiseTexture.instance.dynamicBaseColor = Random.Range(0, 10) > 5;
+        WorleyNoiseTexture.instance.baseColor = new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f));
+
+        WorleyNoiseTexture.instance.generateMesh = Random.Range(0, 10) > 4;
+        WorleyNoiseTexture.instance.dynamicMesh = Random.Range(0, 10) > 5;
+        WorleyNoiseMesh.instance.noiseMultiplier = Random.Range(-5f, 5f);
+
+        if (WorleyNoiseTexture.instance.generateMesh)
+            WorleyNoiseTexture.instance.generateWorleyNoiseMesh();
+        else
+            WorleyNoiseMesh.instance.clear();
+
+
+        WorleyNoiseTexture.instance.init();
+    }
+    #endregion
 }

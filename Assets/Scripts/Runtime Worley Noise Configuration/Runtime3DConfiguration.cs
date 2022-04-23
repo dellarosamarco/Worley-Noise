@@ -54,6 +54,11 @@ public class Runtime3DConfiguration : MonoBehaviour
                 break;
         }
 
+        if (WorleyNoiseTexture.instance.generateMesh)
+            WorleyNoiseTexture.instance.generateWorleyNoiseMesh();
+        else
+            WorleyNoiseMesh.instance.clear();
+
         if (!WorleyNoiseTexture.instance.visualizeCellsIteration)
             WorleyNoiseTexture.instance.cellsIteration();
     }
