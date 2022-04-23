@@ -17,6 +17,7 @@ public class Runtime2DConfiguration : MonoBehaviour
 
     private void Start()
     {
+        noiseMultiplier2D.value = 8.0f;
         noiseMultiplier2D.onValueChanged.AddListener(delegate { 
             eventsHandler(noiseMultiplier2D.value, Event2D.NOISE_MULTIPLIER); 
         });
@@ -75,7 +76,8 @@ public class Runtime2DConfiguration : MonoBehaviour
                 break;
         }
 
-        WorleyNoiseTexture.instance.cellsIteration();
+        if(!WorleyNoiseTexture.instance.visualizeCellsIteration)
+            WorleyNoiseTexture.instance.cellsIteration();
     }
 
     public void eventsHandler(bool value, Event2D _event)
@@ -93,7 +95,8 @@ public class Runtime2DConfiguration : MonoBehaviour
                 break;
         }
 
-        WorleyNoiseTexture.instance.cellsIteration();
+        if (!WorleyNoiseTexture.instance.visualizeCellsIteration)
+            WorleyNoiseTexture.instance.cellsIteration();
     }
     #endregion
 }

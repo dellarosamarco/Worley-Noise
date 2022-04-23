@@ -56,7 +56,8 @@ public class RuntimeDebugDrawingConfiguration : MonoBehaviour
                 break;
         }
 
-        WorleyNoiseTexture.instance.cellsIteration();
+        if (!WorleyNoiseTexture.instance.visualizeCellsIteration)
+            WorleyNoiseTexture.instance.cellsIteration();
     }
     #endregion
 }

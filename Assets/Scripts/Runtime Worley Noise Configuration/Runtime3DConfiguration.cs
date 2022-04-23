@@ -54,7 +54,8 @@ public class Runtime3DConfiguration : MonoBehaviour
                 break;
         }
 
-        WorleyNoiseTexture.instance.cellsIteration();
+        if (!WorleyNoiseTexture.instance.visualizeCellsIteration)
+            WorleyNoiseTexture.instance.cellsIteration();
     }
 
     public void eventsHandler(bool value, Event3D _event)
@@ -78,7 +79,8 @@ public class Runtime3DConfiguration : MonoBehaviour
                 break;
         }
 
-        WorleyNoiseTexture.instance.cellsIteration();
+        if (!WorleyNoiseTexture.instance.visualizeCellsIteration)
+            WorleyNoiseTexture.instance.cellsIteration();
     }
     #endregion
 
@@ -111,7 +113,8 @@ public class Runtime3DConfiguration : MonoBehaviour
 
         WorleyNoiseMesh.instance.setGradient(colorKey, alphaKey);
 
-        WorleyNoiseTexture.instance.cellsIteration();
+        if (!WorleyNoiseTexture.instance.visualizeCellsIteration)
+            WorleyNoiseTexture.instance.cellsIteration();
     }
     #endregion
 }
