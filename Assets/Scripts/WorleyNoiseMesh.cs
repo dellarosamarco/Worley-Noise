@@ -159,6 +159,8 @@ public class WorleyNoiseMesh : MonoBehaviour
             mesh.colors = colors;
 
         mesh.RecalculateNormals();
+        mesh.bounds = new Bounds(Vector3.zero, Vector3.one * 2000);
+        mesh.RecalculateBounds();
     }
 
     public void clear()
